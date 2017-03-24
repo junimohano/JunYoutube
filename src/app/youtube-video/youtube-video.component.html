@@ -1,0 +1,89 @@
+<h3>Video Info</h3>
+
+<ng-template #loading>
+    <md-spinner></md-spinner>
+</ng-template>
+
+<div *ngIf="!isVideoSearching; else loading">
+
+    <ng-template #noResult>
+        <em>No Result</em>
+    </ng-template>
+
+    <div *ngIf="youtubeVideo; else noResult">
+
+        <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="5px">
+            <iframe fxFlex="50" fxFlex.md="100" fxFlex.xs="100" [src]='youtubeVideo.embedUrl' height="400" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+
+            <div fxFlex="50" fxFlex.md="100" fxFlex.xs="100">
+                <h3>
+                    <strong><a [href]="searchData.url" target="_blank">{{youtubeVideo.title}}</a></strong>
+                </h3>
+                <p>{{youtubeVideo.publishedAt}}</p>
+                <p>{{youtubeVideo.duration }}</p>
+                <p>{{youtubeVideo.viewCount | number}} Views</p>
+                <p>{{youtubeVideo.commentCount | number}} Comments</p>
+                <p>
+                    <i class="glyphicon glyphicon-thumbs-up"></i> {{youtubeVideo.likeCount | number}} <i class="glyphicon glyphicon-thumbs-down"></i> {{youtubeVideo.dislikeCount | number}}
+                </p>
+                <div style="max-height: 200px; overflow-y: auto;">
+                    {{youtubeVideo.description}}
+                </div>
+
+                <div class="btn-group btn-group-lg" style="margin-top: 10px;">
+                    <a class="btn btn-danger" [href]="youtubeVideo.youtubeVideoInfos[0].downloadUrl" [title]="youtubeVideo.title" download>
+                        <span>
+                                <i *ngIf="youtubeVideo.youtubeVideoInfos[0].resolution != 0" class='glyphicon glyphicon-expand'></i><i *ngIf="youtubeVideo.youtubeVideoInfos[0].resolution == 0" class='glyphicon glyphicon-headphones'></i>
+                                <strong>{{youtubeVideo.youtubeVideoInfos[0].videoExtension}}</strong>
+                                <span *ngIf="youtubeVideo.youtubeVideoInfos[0].resolution != 0">{{ youtubeVideo.youtubeVideoInfos[0].resolution }}P</span>
+                        <i *ngIf="youtubeVideo.youtubeVideoInfos[0].audioBitrate == 0" class='glyphicon glyphicon-volume-off'></i>
+                        <span *ngIf="youtubeVideo.youtubeVideoInfos[0].audioBitrate != 0">{{ youtubeVideo.youtubeVideoInfos[0].audioBitrate }}Kbps</span>
+                        </span>
+                    </a>
+                    <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="caret"></span>
+                            <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                    <ul class="dropdown-menu" style="max-height: 250px; overflow-y: auto;">
+                        <li *ngFor="let youtubeVideoDetail of youtubeVideo.youtubeVideoInfos">
+                            <a [href]="youtubeVideoDetail.downloadUrl" [title]="youtubeVideo.title" download>
+                                <span>
+                                        <i *ngIf="youtubeVideoDetail.resolution != 0" class='glyphicon glyphicon-expand'></i><i *ngIf="youtubeVideoDetail.resolution == 0" class='glyphicon glyphicon-headphones'></i>
+                                        <strong>{{youtubeVideoDetail.videoExtension}}</strong>
+                                        <span *ngIf="youtubeVideoDetail.resolution != 0">{{ youtubeVideoDetail.resolution }}P</span>
+                                <i *ngIf="youtubeVideoDetail.audioBitrate == 0" class='glyphicon glyphicon-volume-off'></i>
+                                <span *ngIf="youtubeVideoDetail.audioBitrate != 0">{{ youtubeVideoDetail.audioBitrate }}Kbps</span>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div *ngIf="youtubeVideo.youtubeCaptionInfos.length > 0" class="btn-group btn-group-lg" style="margin-top: 10px;">
+                    <!--<a (click)="downloadCaption(youtubeVideo.youtubeCaptionInfos[0].language, youtubeVideo.id)" class="btn btn-info" [title]="youtubeVideo.youtubeCaptionInfos[0].captionName">-->
+                    <a [href]="youtubeVideo.youtubeCaptionInfos[0].captionSafeUrl" class="btn btn-info" [title]="youtubeVideo.youtubeCaptionInfos[0].captionName" download="test.xml">
+                        <span>
+                                <i class='glyphicon glyphicon-subtitles'></i> {{youtubeVideo.youtubeCaptionInfos[0].languageFullName}} ({{youtubeVideo.youtubeCaptionInfos[0].language}})
+                            </span>
+                    </a>
+                    <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="caret"></span>
+                            <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                    <ul class="dropdown-menu" style="max-height: 250px; overflow-y: auto;">
+                        <li *ngFor="let youtubeCaptionDetail of youtubeVideo.youtubeCaptionInfos">
+                            <a [href]="youtubeCaptionDetail.captionSafeUrl" [title]="youtubeCaptionDetail.captionName" download>
+                                <span>
+                                        <i class='glyphicon glyphicon-subtitles'></i> {{youtubeCaptionDetail.languageFullName}} ({{youtubeCaptionDetail.language}})
+                                    </span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div style="margin-bottom: 20px;">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

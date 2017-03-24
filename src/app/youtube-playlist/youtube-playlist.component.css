@@ -1,0 +1,4 @@
+.selectedPlaylist:hover {
+    background-color: dimgray;
+    color: white;
+}
