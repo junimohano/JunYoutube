@@ -18,18 +18,18 @@
             <iframe fxFlex="50" fxFlex.md="100" fxFlex.xs="100" [src]='youtubeVideo.embedUrl' height="400" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 
             <div fxFlex="50" fxFlex.md="100" fxFlex.xs="100">
-                <h2>
+                <h2 mdTooltip="Title" mdTooltipPosition="above">
                     <a [href]="searchData.url" target="_blank">{{youtubeVideo.title}}</a>
                 </h2>
-                <p>{{youtubeVideo.publishedAt | date:"MM/dd/yy"}}</p>
-                <p>{{youtubeVideo.duration }}</p>
-                <p>{{youtubeVideo.viewCount | number}} Views</p>
-                <p>{{youtubeVideo.commentCount | number}} Comments</p>
+                <p><span mdTooltip="Published Date" mdTooltipPosition="right">{{youtubeVideo.publishedAt | date:"MM/dd/yy"}}</span></p>
+                <p><span mdTooltip="Duration" mdTooltipPosition="right">{{youtubeVideo.duration }}</span></p>
+                <p><span mdTooltip="Views" mdTooltipPosition="right">{{youtubeVideo.viewCount | number}} Views</span></p>
+                <p><span mdTooltip="Comments" mdTooltipPosition="right">{{youtubeVideo.commentCount | number}} Comments</span></p>
                 <p>
-                    <md-icon>thumb_up</md-icon> {{youtubeVideo.likeCount | number}}
-                    <md-icon>thumb_down</md-icon> {{youtubeVideo.dislikeCount | number}}
+                    <span mdTooltip="Like" mdTooltipPosition="below"><md-icon>thumb_up</md-icon> {{youtubeVideo.likeCount | number}}</span>
+                    <span mdTooltip="Dislike" mdTooltipPosition="below"><md-icon>thumb_down</md-icon> {{youtubeVideo.dislikeCount | number}}</span>
                 </p>
-                <div style="max-height: 200px; overflow-y: auto;">
+                <div style="max-height: 200px; overflow-y: auto;" mdTooltip="Description" mdTooltipPosition="above">
                     {{youtubeVideo.description}}
                 </div>
 
@@ -45,7 +45,7 @@
                         </md-option>
                     </md-select>
 
-                    <button md-raised-button color="primary" (click)="videoDownload()" mdTooltip="video" mdTooltipPosition="right">
+                    <button md-raised-button color="primary" (click)="videoDownload()">
                         <span *ngIf="selectedVideo?.audioBitrate == 0; else resolutionTemplate">
                             <md-icon class="wrongPositionOfMdIcon">volume_off</md-icon>　　Download
                         </span>
@@ -67,7 +67,7 @@
                         </md-option>
                     </md-select>
 
-                    <button md-raised-button color="warn" (click)="captionDownload()" mdTooltip="subtitle" mdTooltipPosition="right">
+                    <button md-raised-button color="warn" (click)="captionDownload()">
                         <md-icon>closed_caption</md-icon> Download
                     </button>
                 </div>
