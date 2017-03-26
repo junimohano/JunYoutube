@@ -1,7 +1,12 @@
 interface SearchData {
     inputUrl: string | undefined;
-    url: string;
     firstUrl: string;
+
+    url: string;
     index: string;
     nextToken: string | null;
+
+    videoExtension: string;
+    audioBitrate: number;
+    resolution: number;
 }

@@ -6,3 +6,7 @@
 .colorDimgray {
     color: dimgray;
 }
+
+.progress-small {
+    width: 30px;
+}

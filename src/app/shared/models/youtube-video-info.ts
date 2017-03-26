@@ -3,4 +3,6 @@ interface YoutubeVideoInfo {
     videoExtension: string;
     audioBitrate: number;
     resolution: number;
+    isAudio: boolean;
+    requiresDecryption: boolean;
 }

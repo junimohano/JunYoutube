@@ -9,10 +9,13 @@ export class YoutubeComponent implements OnInit {
 
   searchData: SearchData = {
     inputUrl: '',
-    url: '',
     firstUrl: '',
+    url: '',
     index: '',
-    nextToken: null
+    nextToken: null,
+    videoExtension: '',
+    audioBitrate: 0,
+    resolution: 0
   };
 
   constructor() { }

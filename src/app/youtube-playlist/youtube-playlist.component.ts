@@ -52,12 +52,12 @@ export class YoutubePlaylistComponent implements OnInit {
           }
         } catch (error) {
           console.error(error);
-        } finally {
-          this.isVideoListSearching = false;
         }
       },
       err => {
         console.error(err);
+        this.isVideoListSearching = false;
+      }, () => {
         this.isVideoListSearching = false;
       });
 

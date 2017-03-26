@@ -14,10 +14,11 @@ export class YoutubeVideoComponent implements OnInit {
 
   @Input() searchData: SearchData;
 
+  youtubeVideo: YoutubeVideo;
   selectedVideo: YoutubeVideoInfo;
   selectedCaption: YoutubeCaptionInfo;
   isVideoSearching = false;
-  youtubeVideo: YoutubeVideo;
+  isDownloadingVideo = false;
 
   constructor(private sanitizer: DomSanitizer, private youtubeApiService: YoutubeApiService, private snackBar: MdSnackBar) { }
 
@@ -45,32 +46,69 @@ export class YoutubeVideoComponent implements OnInit {
           }
         } catch (error) {
           console.error(error);
-        } finally {
-          this.isVideoSearching = false;
         }
       },
       err => {
         console.error(err);
+        this.isVideoSearching = false;
+      }, () => {
+        this.isVideoSearching = false;
       });
   }
 
-  videoDownload() {
-    this.downloadFile(this.selectedVideo.downloadUrl);
+  downloadVideoDecryption() {
+    if (this.selectedVideo.requiresDecryption) {
+      this.isDownloadingVideo = true;
+      this.searchData.videoExtension = this.selectedVideo.videoExtension;
+      this.searchData.audioBitrate = this.selectedVideo.audioBitrate;
+      this.searchData.resolution = this.selectedVideo.resolution;
 
+      this.youtubeApiService.getYoutubeVideoDecryption(this.searchData)
+        .subscribe(
+        result => {
+          try {
+            if (result.status === 200) {
+              const youtubeVideoInfo: YoutubeVideoInfo = result.json();
+              if (youtubeVideoInfo != null) {
+                this.selectedVideo.downloadUrl = youtubeVideoInfo.downloadUrl;
+                this.selectedVideo.requiresDecryption = false;
+                this.downloadVideo();
+              }
+            }
+          } catch (error) {
+            console.error(error);
+          }
+        },
+        err => {
+          console.error(err);
+          if (this.isDownloadingVideo) {
+            this.isDownloadingVideo = false;
+          }
+        }, () => {
+          if (this.isDownloadingVideo) {
+            this.isDownloadingVideo = false;
+          }
+        });
+    } else {
+      this.downloadVideo();
+    }
+  }
+
+  private downloadVideo() {
+    this.downloadFile(this.selectedVideo.downloadUrl);
     this.snackBar.open(`downloading ${this.youtubeVideo.title}...`, 'close', {
       duration: 2000,
     });
   }
 
-  captionDownload() {
+  downloadCaption() {
     this.downloadFile(this.selectedCaption.captionUrl);
-
     this.snackBar.open(`downloading ${this.selectedCaption.languageFullName}...`, 'close', {
       duration: 2000,
     });
   }
 
-  downloadFile(fileUrl: string) {
+  private downloadFile(fileUrl: string) {
     const save = document.createElement('a');
     save.href = fileUrl;
     save.target = '_blank';

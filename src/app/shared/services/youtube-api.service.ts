@@ -21,9 +21,8 @@ export class YoutubeApiService {
     return this.http.post(`${environment.webApiUrl}/api/v1/YoutubePlaylist`, JSON.stringify(searchData), { headers: this.headers });
   }
 
-  // downloadFile(url: string) {
-  //   return this.http.get(url, { responseType: ResponseContentType.Blob })
-  //     .map(res => res.blob());
-  // }
+  getYoutubeVideoDecryption(searchData: SearchData) {
+    return this.http.post(`${environment.webApiUrl}/api/v1/YoutubeVideoDecryption`, JSON.stringify(searchData), { headers: this.headers });
+  }
 
 }

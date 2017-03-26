@@ -6,6 +6,5 @@
 export const environment = {
   production: false,
   hmr: false,
-  webApiUrl: 'https://JunYoutubeWebApi.azurewebsites.net'
-  // webApiUrl: 'http://localhost:5000'
+  webApiUrl: 'http://localhost:5000'
 };
