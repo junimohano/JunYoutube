@@ -8,7 +8,9 @@ indigo-pink
 purple-green
 */
 
-@import '~@angular/material/core/theming/prebuilt/deeppurple-amber.css';
+
+/*@import '~@angular/material/core/theming/prebuilt/deeppurple-amber.css';*/
+
 @import '~material-design-icons/iconfont/material-icons.css';
 body {
     font-family: Roboto, sans-serif;
