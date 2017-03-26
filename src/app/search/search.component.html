@@ -1,7 +1,6 @@
 <div fxLayout fxLayoutAlign="center center" fxLayoutGap="10px" class="margin-top-25">
     <md-input-container fxFlex="70" fxFlex.lg="40" fxFlex.xl="40">
-        <input mdInput placeholder="Youtube Url" [(ngModel)]="searchData.inputUrl" (keyup.enter)="searchClick()" (ngModelChange)="inputValueChanged($event)" mdTooltip="paste youtube url">
+        <input mdInput type="search" placeholder="Youtube Url" [(ngModel)]="searchData.inputUrl" (keyup.enter)="searchClick()" (keyup)="searchInput($event)" mdTooltip="paste youtube url">
     </md-input-container>
-    <!--<input type="text" class="form-control" placeholder="Insert Youtube Url" [(ngModel)]="searchData.inputUrl" (keyup.enter)="searchClick()" required (ngModelChange)="inputValueChanged($event)">-->
-    <button fxFlex="5" md-raised-button (click)="searchClick()">Search</button>
+    <button fxFlex="5" md-raised-button color="accent" (click)="searchClick()" mdTooltip="search a video" [disabled]="searchData.inputUrl.length < minimumInputLength">Search</button>
 </div>

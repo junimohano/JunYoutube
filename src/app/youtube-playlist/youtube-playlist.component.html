@@ -1,32 +1,34 @@
-<h3>PlayList / Channel</h3>
+<h2 class="colorDimgray">PlayList / Channel</h2>
 
 <ng-template #loading>
-    <md-spinner></md-spinner>
+    <div fxLayout fxLayoutAlign="center">
+        <md-spinner color="accent"></md-spinner>
+    </div>
 </ng-template>
 
 <div *ngIf="!isVideoListSearching; else loading">
     <ng-template #noResult>
-        <em>No Result</em>
+        <em>No list</em>
     </ng-template>
 
     <div *ngIf="youtubePlaylist; else noResult">
-        <em><strong><span *ngIf="youtubePlaylist.isPlaylist">Playlist</span><span *ngIf="!youtubePlaylist.isPlaylist">Channel</span> ({{youtubePlaylist.youtubePlaylistInfos.length}} of {{youtubePlaylist.totalCount}})</strong></em>
+        <em class="colorDimgray"><strong><span *ngIf="youtubePlaylist.isPlaylist">Playlist</span><span *ngIf="!youtubePlaylist.isPlaylist">Channel</span> ({{youtubePlaylist.youtubePlaylistInfos.length}} of {{youtubePlaylist.totalCount}})</strong></em>
         <div style="height: 600px; overflow-y: auto;">
             <div *ngFor="let youtubePlaylistInfo of youtubePlaylist.youtubePlaylistInfos" (click)="openClick(youtubePlaylistInfo.videoId)" class="selectedPlaylist" style="margin-top: 1px;">
 
                 <div fxLayout="row" fxLayoutGap="5px">
-                    <img [src]="youtubePlaylistInfo.thumbnailUrl" fxFlex="25" fxFlex.md="30" fxFlex.xs="30" height="150" />
+                    <img [src]="youtubePlaylistInfo.thumbnailUrl" fxFlex="25" fxFlex.md="30" fxFlex.xs="30" height="125" />
 
                     <div fxFlex="75" fxFlex.md="70" fxFlex.xs="70">
-                        <p><strong>{{youtubePlaylistInfo.title}}</strong></p>
-                        <p><em *ngIf="youtubePlaylist.isPlaylist"><strong>({{youtubePlaylistInfo.position+1}})</strong> {{youtubePlaylistInfo.channelTitle}}</em></p>
+                        <strong>{{youtubePlaylistInfo.title}}</strong>
+                        <p *ngIf="youtubePlaylist.isPlaylist"><strong>({{youtubePlaylistInfo.position + 1}})</strong> {{youtubePlaylistInfo.channelTitle}}</p>
                         <p><em>{{youtubePlaylistInfo.publishedAt}}</em></p>
                     </div>
                 </div>
             </div>
 
             <div fxLayout="row" fxLayoutAlign="center center" class="margin-top-20">
-                <button md-raised-button color="primary" *ngIf="youtubePlaylist.youtubePlaylistInfos.length != youtubePlaylist.totalCount" (click)="getYoutubePlaylist(false)">
+                <button md-raised-button color="primary" *ngIf="youtubePlaylist.youtubePlaylistInfos.length != youtubePlaylist.totalCount" (click)="getYoutubePlaylist(false)" mdTooltip="show more videos" mdTooltipPosition="above">
                     Show more
                 </button>
             </div>

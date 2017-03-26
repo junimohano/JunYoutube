@@ -1,12 +1,19 @@
 <md-toolbar color="primary">
     <span>JunYoutube</span>
-    <span class="example-spacer"></span>
 
-    <button md-icon-button (click)="goToPortfolio()" mdTooltip="Go to Portfolio">
-        <md-icon>public</md-icon>
+    <span class="spacer"></span>
+    <button md-icon-button [mdMenuTriggerFor]="menu">
+      <md-icon>more_vert</md-icon>
     </button>
+    <md-menu #menu="mdMenu">
+        <button md-menu-item (click)="goToPortfolio()">
+            <md-icon>public</md-icon>
+            <span>Portfolio</span>
+        </button>
+        <button md-menu-item (click)="goToGithub()">
+            <md-icon>code</md-icon>
+            <span>Github</span>
+        </button>
+    </md-menu>
 
-    <button md-icon-button (click)="goToGithub()" mdTooltip="Go to Github">
-        <md-icon>code</md-icon>
-    </button>
 </md-toolbar>

@@ -1,9 +1,21 @@
 /* You can add global styles to this file, and also import other style files */
 
+
+/*
+pink-bluegrey
+deeppurple-amber
+indigo-pink
+purple-green
+*/
+
 @import '~@angular/material/core/theming/prebuilt/deeppurple-amber.css';
 @import '~material-design-icons/iconfont/material-icons.css';
 body {
     font-family: Roboto, sans-serif;
+}
+
+.margin-top-10 {
+    margin-top: 10px;
 }
 
 .margin-top-15 {
@@ -16,4 +28,16 @@ body {
 
 .margin-top-25 {
     margin-top: 25px;
+}
+
+.margin-top-30 {
+    margin-top: 30px;
+}
+
+.margin-top-35 {
+    margin-top: 35px;
+}
+
+.margin-top-40 {
+    margin-top: 40px;
 }

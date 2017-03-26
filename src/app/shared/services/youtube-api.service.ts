@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers } from '@angular/http';
+import { Http, Headers, ResponseContentType } from '@angular/http';
 import { environment } from '../../../environments/environment';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class YoutubeApiService {
@@ -19,5 +20,10 @@ export class YoutubeApiService {
   getYoutubePlaylist(searchData: SearchData) {
     return this.http.post(`${environment.webApiUrl}/api/v1/YoutubePlaylist`, JSON.stringify(searchData), { headers: this.headers });
   }
+
+  // downloadFile(url: string) {
+  //   return this.http.get(url, { responseType: ResponseContentType.Blob })
+  //     .map(res => res.blob());
+  // }
 
 }

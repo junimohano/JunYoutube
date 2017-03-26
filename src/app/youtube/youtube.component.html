@@ -1,6 +1,6 @@
 <app-search [searchData]="searchData" (youtubeVideoEvent)="youtubeVideo.getYoutubeVideo($event)" (youtubePlaylistEvent)="youtubePlaylist.getYoutubePlaylist($event)"></app-search>
 
-<div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayout.md="column">
+<div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayout.md="column" fxLayoutGap="5px">
     <md-card fxFlex="70" fxFlex.xs="100" fxFlex.md="80">
         <app-youtube-video #youtubeVideo [searchData]="searchData"></app-youtube-video>
     </md-card>
