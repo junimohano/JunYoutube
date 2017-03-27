@@ -17,9 +17,9 @@
             <div *ngFor="let youtubePlaylistInfo of youtubePlaylist.youtubePlaylistInfos" (click)="openClick(youtubePlaylistInfo.videoId)" class="selectedPlaylist" style="margin-top: 1px;">
 
                 <div fxLayout="row" fxLayoutGap="5px">
-                    <img [src]="youtubePlaylistInfo.thumbnailUrl" fxFlex="25" fxFlex.md="30" fxFlex.xs="30" height="125" />
+                    <img [src]="youtubePlaylistInfo.thumbnailUrl" fxFlex="30" fxFlex.md="25" fxFlex.xs="30" height="125" />
 
-                    <div fxFlex="75" fxFlex.md="70" fxFlex.xs="70">
+                    <div fxFlex="70" fxFlex.md="75" fxFlex.xs="70">
                         <strong>{{youtubePlaylistInfo.title}}</strong>
                         <p *ngIf="youtubePlaylist.isPlaylist"><strong>({{youtubePlaylistInfo.position + 1}})</strong> {{youtubePlaylistInfo.channelTitle}}</p>
                         <p><em>{{youtubePlaylistInfo.publishedAt}}</em></p>

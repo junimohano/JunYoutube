@@ -36,9 +36,13 @@
                 <div class="margin-top-30">
                     <md-select style="min-width: 180px;" placeholder="video" [(ngModel)]="selectedVideo" name="video">
                         <md-option *ngFor="let youtubeVideo of youtubeVideo.youtubeVideoInfos" [value]="youtubeVideo">
-                            {{youtubeVideo.videoExtension}}
-                            <span *ngIf="youtubeVideo.resolution != 0">{{youtubeVideo.resolution}}P</span>
-                            <span *ngIf="youtubeVideo.audioBitrate != 0">{{ youtubeVideo.audioBitrate }}Kbps</span>
+                            <span *ngIf="youtubeVideo.resolution != 0 && youtubeVideo.audioBitrate != 0; else videoOrSound">{{youtubeVideo.resolution}}P ({{ youtubeVideo.audioBitrate }}Kbps)</span>
+                            <ng-template #videoOrSound>
+                                <span *ngIf="youtubeVideo.resolution != 0; else noSound">{{youtubeVideo.resolution}}P (no sound)</span>
+                                <ng-template #noSound>
+                                    {{ youtubeVideo.audioBitrate }}Kbps (sound only)
+                                </ng-template>
+                            </ng-template>
                         </md-option>
                     </md-select>
 
