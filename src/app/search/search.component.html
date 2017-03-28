@@ -1,7 +1,12 @@
-<div fxLayout fxLayoutAlign="center center" fxLayoutGap="10px" class="margin-top-20">
+<div fxLayout fxLayoutAlign="center center" fxLayoutGap="10px" class="margin-top-10">
     <md-input-container fxFlex="70" fxFlex.lg="40" fxFlex.xl="40">
         <input mdInput type="search" placeholder="Youtube Url" [(ngModel)]="searchData.inputUrl" (keyup.enter)="searchClick()" (keyup)="searchInput($event)">
     </md-input-container>
-    <!--mdTooltip="paste youtube url"-->
+
     <button fxFlex="5" md-raised-button color="accent" (click)="searchClick()" [disabled]="searchData.inputUrl.length < minimumInputLength">Search</button>
+</div>
+
+<div fxLayout fxLayoutAlign="center">
+    <!-- clickmon -->
+    <iframe *ngIf="clickmonSrc" [width]="clickmonWidth" [height]="clickmonHeight" allowtransparency="true" [src]="clickmonSrc" frameborder="0" scrolling="no"></iframe>
 </div>
