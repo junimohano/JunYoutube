@@ -34,19 +34,19 @@
                 </div>
 
                 <div class="margin-top-30">
-                    <md-select style="min-width: 180px;" placeholder="video" [(ngModel)]="selectedVideo" name="video">
+                    <md-select style="min-width: 190px;" placeholder="video" [(ngModel)]="selectedVideo" name="video">
                         <md-option *ngFor="let youtubeVideo of youtubeVideo.youtubeVideoInfos" [value]="youtubeVideo">
-                            <span *ngIf="youtubeVideo.resolution != 0 && youtubeVideo.audioBitrate != 0; else videoOrSound">{{youtubeVideo.resolution}}P ({{ youtubeVideo.audioBitrate }}Kbps)</span>
+                            <span *ngIf="youtubeVideo.resolution != 0 && youtubeVideo.audioBitrate != 0; else videoOrSound">{{youtubeVideo.videoExtension}} - {{youtubeVideo.resolution}}p</span>
                             <ng-template #videoOrSound>
-                                <span *ngIf="youtubeVideo.resolution != 0; else noSound">{{youtubeVideo.resolution}}P (no sound)</span>
+                                <span *ngIf="youtubeVideo.resolution != 0; else noSound">{{youtubeVideo.videoExtension}} - {{youtubeVideo.resolution}}p (no sound)</span>
                                 <ng-template #noSound>
-                                    {{ youtubeVideo.audioBitrate }}Kbps (sound only)
+                                    {{youtubeVideo.videoExtension}} - AAC (audio)
                                 </ng-template>
                             </ng-template>
                         </md-option>
                     </md-select>
 
-                    <button md-raised-button color="primary" (click)="downloadVideoDecryption()" [disabled]="isDownloadingVideo">
+                    <button md-raised-button color="primary" (click)="downloadVideo()">
                         <span *ngIf="selectedVideo?.audioBitrate==0; else resolutionTemplate">
                             <md-icon class="wrongPositionOfMdIcon ">volume_off</md-icon>　　Download
                         </span>
@@ -60,13 +60,10 @@
                         </ng-template>
                     </button>
 
-                    <div *ngIf="isDownloadingVideo" fxLayout fxLayoutAlign="center">
-                        <md-spinner class="progress-small" color="primary"></md-spinner>
-                    </div>
                 </div>
 
                 <div *ngIf="youtubeVideo.youtubeCaptionInfos.length> 0" class="margin-top-25">
-                    <md-select style="min-width: 180px;" placeholder="subtitle" [(ngModel)]="selectedCaption" name="caption">
+                    <md-select style="min-width: 190px;" placeholder="subtitle" [(ngModel)]="selectedCaption" name="caption">
                         <md-option *ngFor="let youtubeCaption of youtubeVideo.youtubeCaptionInfos" [value]="youtubeCaption">
                             {{youtubeCaption.languageFullName}} ({{youtubeCaption.language}})
                         </md-option>

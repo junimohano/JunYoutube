@@ -4,6 +4,7 @@ import { YoutubeVideo } from '../shared/models/youtube-video';
 import { YoutubeApiService } from '../shared/services/youtube-api.service';
 import { YoutubeCaptionInfo } from '../shared/models/youtube-caption-info';
 import { MdSnackBar } from '@angular/material';
+import * as FileSaver from 'file-saver';
 
 @Component({
   selector: 'app-youtube-video',
@@ -18,7 +19,7 @@ export class YoutubeVideoComponent implements OnInit {
   selectedVideo: YoutubeVideoInfo;
   selectedCaption: YoutubeCaptionInfo;
   isVideoSearching = false;
-  isDownloadingVideo = false;
+  // isDownloadingVideo = false;
 
   constructor(private sanitizer: DomSanitizer, private youtubeApiService: YoutubeApiService, private snackBar: MdSnackBar) { }
 
@@ -56,44 +57,6 @@ export class YoutubeVideoComponent implements OnInit {
       });
   }
 
-  downloadVideoDecryption() {
-    if (this.selectedVideo.requiresDecryption) {
-      this.isDownloadingVideo = true;
-      this.searchData.videoExtension = this.selectedVideo.videoExtension;
-      this.searchData.audioBitrate = this.selectedVideo.audioBitrate;
-      this.searchData.resolution = this.selectedVideo.resolution;
-
-      this.youtubeApiService.getYoutubeVideoDecryption(this.searchData)
-        .subscribe(
-        result => {
-          try {
-            if (result.status === 200) {
-              const youtubeVideoInfo: YoutubeVideoInfo = result.json();
-              if (youtubeVideoInfo != null) {
-                this.selectedVideo.downloadUrl = youtubeVideoInfo.downloadUrl;
-                this.selectedVideo.requiresDecryption = false;
-                this.downloadVideo();
-              }
-            }
-          } catch (error) {
-            console.error(error);
-          }
-        },
-        err => {
-          console.error(err);
-          if (this.isDownloadingVideo) {
-            this.isDownloadingVideo = false;
-          }
-        }, () => {
-          if (this.isDownloadingVideo) {
-            this.isDownloadingVideo = false;
-          }
-        });
-    } else {
-      this.downloadVideo();
-    }
-  }
-
   private downloadVideo() {
     this.downloadFile(this.selectedVideo.downloadUrl);
     this.snackBar.open(`downloading ${this.youtubeVideo.title}...`, 'close', {
@@ -117,6 +80,14 @@ export class YoutubeVideoComponent implements OnInit {
     evt.initMouseEvent('click', true, true, window, 1, 0, 0, 0, 0, false, false, false, false, 0, null);
     save.dispatchEvent(evt);
     (window.URL).revokeObjectURL(save.href);
+
+    // this.youtubeApiService.getUrlData(fileUrl)
+    //   .subscribe(imageData => {
+    //     FileSaver.saveAs(new Blob([imageData]), this.youtubeVideo.title + this.selectedVideo.videoExtension);
+    //     //URL.createObjectURL(new Blob([imageData]));
+    //     // const url = window.URL.createObjectURL(blob);
+    //     // window.open(url);
+    //   });
   }
 
 }
