@@ -4,4 +4,5 @@ interface YoutubeVideoInfo {
     audioBitrate: number;
     resolution: number;
     isAudio: boolean;
+    fileSize: string;
 }

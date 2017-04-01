@@ -4,7 +4,7 @@ import { YoutubeVideo } from '../shared/models/youtube-video';
 import { YoutubeApiService } from '../shared/services/youtube-api.service';
 import { YoutubeCaptionInfo } from '../shared/models/youtube-caption-info';
 import { MdSnackBar } from '@angular/material';
-import * as FileSaver from 'file-saver';
+// import * as FileSaver from 'file-saver';
 
 @Component({
   selector: 'app-youtube-video',
@@ -19,7 +19,6 @@ export class YoutubeVideoComponent implements OnInit {
   selectedVideo: YoutubeVideoInfo;
   selectedCaption: YoutubeCaptionInfo;
   isVideoSearching = false;
-  // isDownloadingVideo = false;
 
   constructor(private sanitizer: DomSanitizer, private youtubeApiService: YoutubeApiService, private snackBar: MdSnackBar) { }
 
@@ -39,9 +38,9 @@ export class YoutubeVideoComponent implements OnInit {
             this.youtubeVideo = result.json();
             // tslint:disable-next-line:max-line-length
             this.youtubeVideo.embedUrl = this.sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/' + this.youtubeVideo.id);
-            this.youtubeVideo.youtubeCaptionInfos.forEach((cap) => { // foreach statement
-              cap.captionSafeUrl = this.sanitizer.bypassSecurityTrustUrl(cap.captionUrl);
-            });
+            // this.youtubeVideo.youtubeCaptionInfos.forEach((cap) => { // foreach statement
+            //   cap.captionSafeUrl = this.sanitizer.bypassSecurityTrustUrl(cap.captionUrl);
+            // });
             this.selectedVideo = this.youtubeVideo.youtubeVideoInfos.length > 0 ? this.youtubeVideo.youtubeVideoInfos[0] : null;
             this.selectedCaption = this.youtubeVideo.youtubeCaptionInfos.length > 0 ? this.youtubeVideo.youtubeCaptionInfos[0] : null;
           }
@@ -88,6 +87,14 @@ export class YoutubeVideoComponent implements OnInit {
     //     // const url = window.URL.createObjectURL(blob);
     //     // window.open(url);
     //   });
+  }
+
+  pad(num: number, size: number): string {
+    let s = num + '';
+    while (s.length < size) {
+      s = ' ' + s;
+    }
+    return s;
   }
 
 }

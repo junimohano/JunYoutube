@@ -21,22 +21,18 @@ export class YoutubeApiService {
     return this.http.post(`${environment.webApiUrl}/api/v1/YoutubePlaylist`, JSON.stringify(searchData), { headers: this.headers });
   }
 
-  getYoutubeVideoDecryption(searchData: SearchData) {
-    return this.http.post(`${environment.webApiUrl}/api/v1/YoutubeVideoDecryption`, JSON.stringify(searchData), { headers: this.headers });
-  }
-
-  getUrlData(url: string) {
-    return Observable.create(observer => {
-      const req = new XMLHttpRequest();
-      req.open('get', url);
-      req.responseType = 'arraybuffer';
-      req.onreadystatechange = function () {
-        if (req.readyState === 4 && req.status === 200) {
-          observer.next(req.response);
-          observer.complete();
-        }
-      };
-      req.send();
-    });
-  }
+  // getUrlData(url: string) {
+  //   return Observable.create(observer => {
+  //     const req = new XMLHttpRequest();
+  //     req.open('get', url);
+  //     req.responseType = 'arraybuffer';
+  //     req.onreadystatechange = function () {
+  //       if (req.readyState === 4 && req.status === 200) {
+  //         observer.next(req.response);
+  //         observer.complete();
+  //       }
+  //     };
+  //     req.send();
+  //   });
+  // }
 }
