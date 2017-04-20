@@ -21,6 +21,22 @@ export class YoutubeApiService {
     return this.http.post(`${environment.webApiUrl}/api/v1/YoutubePlaylist`, JSON.stringify(searchData), { headers: this.headers });
   }
 
+  getDownload() {
+    // return this.http.get(`${environment.webApiUrl}/api/v1/YoutubeConvert`);
+    return Observable.create(observer => {
+      const req = new XMLHttpRequest();
+      req.open('get', `${environment.webApiUrl}/api/v1/YoutubeConvert`);
+      req.responseType = 'arraybuffer';
+      req.onreadystatechange = function () {
+        if (req.readyState === 4 && req.status === 200) {
+          observer.next(req.response);
+          observer.complete();
+        }
+      };
+      req.send();
+    });
+  }
+
   // getUrlData(url: string) {
   //   return Observable.create(observer => {
   //     const req = new XMLHttpRequest();
