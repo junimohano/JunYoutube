@@ -11,6 +11,12 @@
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <link rel="manifest" href="manifest.json">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/icons/apple-touch-icon.png">
 </head>
 
 <body>
@@ -59,11 +65,11 @@
         Loading<span class="d">.</span><span class="d d-2">.</span><span class="d d-3">.</span>
     </app-root>
 
-    <!-- 
-To collect end-user usage analytics about your application, 
+    <!--
+To collect end-user usage analytics about your application,
 insert the following script into each page you want to track.
 Place this code immediately before the closing </head> tag,
-and before any other scripts. Your first data will appear 
+and before any other scripts. Your first data will appear
 automatically in just a few seconds.
 -->
     <script type="text/javascript">
@@ -106,6 +112,18 @@ automatically in just a few seconds.
 
         window.appInsights = appInsights;
         appInsights.trackPageView();
+    </script>
+
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/service-worker.js').then(function(registration) {
+                // Registration was successful
+                console.log('ServiceWorker registration successful with scope: ', registration.scope);
+            }).catch(function(err) {
+                // registration failed :(
+                console.log('ServiceWorker registration failed: ', err);
+            });
+        }
     </script>
 
 </body>

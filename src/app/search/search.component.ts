@@ -36,7 +36,7 @@ export class SearchComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    if (this.router.url !== '/watch') {
+    if (this.router.url !== '/watch' && this.router.url !== '/watch?utm_source=web_app_manifest') {
       this.searchData.inputUrl = 'https://www.youtube.com' + this.router.url;
     }
 
