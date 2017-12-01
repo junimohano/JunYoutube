@@ -1,19 +1,19 @@
-<md-toolbar color="primary">
+<mat-toolbar color="primary">
     <span>JunYoutube Downloader</span>
 
     <span class="spacer"></span>
-    <button md-icon-button [mdMenuTriggerFor]="menu">
-      <md-icon>more_vert</md-icon>
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon>more_vert</mat-icon>
     </button>
-    <md-menu #menu="mdMenu">
-        <button md-menu-item (click)="goToPortfolio()">
-            <md-icon>public</md-icon>
+    <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="goToPortfolio()">
+            <mat-icon>public</mat-icon>
             <span>Portfolio</span>
         </button>
-        <button md-menu-item (click)="goToGithub()">
-            <md-icon>code</md-icon>
+        <button mat-menu-item (click)="goToGithub()">
+            <mat-icon>code</mat-icon>
             <span>Github</span>
         </button>
-    </md-menu>
+    </mat-menu>
 
-</md-toolbar>
+</mat-toolbar>
