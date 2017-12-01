@@ -37,8 +37,8 @@ export class YoutubePlaylistComponent implements OnInit {
       .subscribe(
       result => {
         try {
-          if (result.status === 200) {
-            const resultList: YoutubePlaylist = result.json();
+          if (result) {
+            const resultList: YoutubePlaylist = result;
             if (this.youtubePlaylist == null) {
               this.youtubePlaylist = resultList;
             } else {

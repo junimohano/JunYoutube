@@ -2,7 +2,7 @@
 
 <ng-template #loading>
     <div fxLayout fxLayoutAlign="center">
-        <md-spinner color="accent"></md-spinner>
+        <mat-spinner color="accent"></mat-spinner>
     </div>
 </ng-template>
 
@@ -28,7 +28,7 @@
             </div>
 
             <div fxLayout="row" fxLayoutAlign="center center" class="margin-top-20">
-                <button md-raised-button color="primary" *ngIf="youtubePlaylist.youtubePlaylistInfos.length != youtubePlaylist.totalCount" (click)="getYoutubePlaylist(false)">
+                <button mat-raised-button color="primary" *ngIf="youtubePlaylist.youtubePlaylistInfos.length != youtubePlaylist.totalCount" (click)="getYoutubePlaylist(false)">
                     Show more
                 </button>
             </div>

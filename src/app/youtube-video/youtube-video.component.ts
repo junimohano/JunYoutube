@@ -3,7 +3,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { YoutubeVideo } from '../shared/models/youtube-video';
 import { YoutubeApiService } from '../shared/services/youtube-api.service';
 import { YoutubeCaptionInfo } from '../shared/models/youtube-caption-info';
-import { MdSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material';
 // import * as FileSaver from 'file-saver';
 
 @Component({
@@ -20,7 +20,7 @@ export class YoutubeVideoComponent implements OnInit {
   selectedCaption: YoutubeCaptionInfo;
   isVideoSearching = false;
 
-  constructor(private sanitizer: DomSanitizer, private youtubeApiService: YoutubeApiService, private snackBar: MdSnackBar) { }
+  constructor(private sanitizer: DomSanitizer, private youtubeApiService: YoutubeApiService, private snackBar: MatSnackBar) { }
 
   ngOnInit() { }
 
@@ -34,8 +34,8 @@ export class YoutubeVideoComponent implements OnInit {
       .subscribe(
       result => {
         try {
-          if (result.status === 200) {
-            this.youtubeVideo = result.json();
+          if (result) {
+            this.youtubeVideo = result;
             // tslint:disable-next-line:max-line-length
             this.youtubeVideo.embedUrl = this.sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/' + this.youtubeVideo.id);
             // this.youtubeVideo.youtubeCaptionInfos.forEach((cap) => { // foreach statement

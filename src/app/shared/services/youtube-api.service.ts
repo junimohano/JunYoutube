@@ -1,24 +1,27 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, ResponseContentType } from '@angular/http';
 import { environment } from '../../../environments/environment';
 import { Observable } from 'rxjs/Observable';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { YoutubeVideo } from 'app/shared/models/youtube-video';
 
 @Injectable()
 export class YoutubeApiService {
 
-  private headers: Headers;
+  private headers: HttpHeaders;
 
-  constructor(private http: Http) {
-    this.headers = new Headers();
-    this.headers.append('Content-Type', 'application/json');
+  constructor(private http: HttpClient) {
+    this.headers = new HttpHeaders();
+    this.headers = this.headers.set('Content-Type', 'application/json; charset=utf-8');
   }
 
-  getYoutubeVideo(searchData: SearchData) {
-    return this.http.post(`${environment.webApiUrl}/api/v1/YoutubeVideo`, JSON.stringify(searchData), { headers: this.headers });
+  getYoutubeVideo(searchData: SearchData): Observable<YoutubeVideo> {
+    return this.http
+      .post<YoutubeVideo>(`${environment.webApiUrl}/api/v1/YoutubeVideo`, JSON.stringify(searchData), { headers: this.headers });
   }
 
-  getYoutubePlaylist(searchData: SearchData) {
-    return this.http.post(`${environment.webApiUrl}/api/v1/YoutubePlaylist`, JSON.stringify(searchData), { headers: this.headers });
+  getYoutubePlaylist(searchData: SearchData): Observable<YoutubePlaylist> {
+    return this.http
+      .post<YoutubePlaylist>(`${environment.webApiUrl}/api/v1/YoutubePlaylist`, JSON.stringify(searchData), { headers: this.headers });
   }
 
   // getDownload() {

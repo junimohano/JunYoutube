@@ -1,11 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { routes } from './app.router';
 
-import { MaterialModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import 'hammerjs';
 
@@ -18,6 +16,20 @@ import { SearchComponent } from './search/search.component';
 import { NavComponent } from './nav/nav.component';
 import { YoutubeComponent } from './youtube/youtube.component';
 import { FooterComponent } from './footer/footer.component';
+import { HttpClientModule } from '@angular/common/http';
+import {
+  MatToolbarModule,
+  MatSnackBarModule,
+  MatTooltipModule,
+  MatCardModule,
+  MatButtonModule,
+  MatInputModule,
+  MatIconModule,
+  MatMenuModule,
+  MatProgressSpinnerModule,
+  MatSelectModule,
+  MatFormFieldModule
+} from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -32,11 +44,21 @@ import { FooterComponent } from './footer/footer.component';
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule,
+    HttpClientModule,
     BrowserAnimationsModule,
 
     routes,
-    MaterialModule,
+    MatToolbarModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatButtonModule,
+    MatCardModule,
+    MatTooltipModule,
+    MatSnackBarModule,
+    MatIconModule,
+    MatMenuModule,
+    MatProgressSpinnerModule,
+    MatSelectModule,
     FlexLayoutModule,
   ],
   providers: [YoutubeApiService],

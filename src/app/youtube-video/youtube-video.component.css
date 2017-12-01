@@ -10,3 +10,7 @@
 .progress-small {
     width: 30px;
 }
+
+.mat-form-field.select-form-right-gap {
+  padding-right: 10px;
+}

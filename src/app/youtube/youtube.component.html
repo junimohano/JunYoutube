@@ -1,11 +1,11 @@
 <app-search [searchData]="searchData" (youtubeVideoEvent)="youtubeVideo.getYoutubeVideo($event)" (youtubePlaylistEvent)="youtubePlaylist.getYoutubePlaylist($event)"></app-search>
 
 <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayout.md="column" fxLayoutGap="5px">
-    <md-card fxFlex="60" fxFlex.xs="100" fxFlex.md="80">
+    <mat-card fxFlex="60" fxFlex.xs="100" fxFlex.md="80">
         <app-youtube-video #youtubeVideo [searchData]="searchData"></app-youtube-video>
-    </md-card>
+    </mat-card>
 
-    <md-card fxFlex="40" fxFlex.xs="100" fxFlex.md="20">
+    <mat-card fxFlex="40" fxFlex.xs="100" fxFlex.md="20">
         <app-youtube-playlist #youtubePlaylist [searchData]="searchData" (youtubeVideoEvent)="youtubeVideo.getYoutubeVideo($event)"></app-youtube-playlist>
-    </md-card>
+    </mat-card>
 </div>
