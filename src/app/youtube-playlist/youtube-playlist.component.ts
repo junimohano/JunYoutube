@@ -1,5 +1,5 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { YoutubeVideoComponent } from '../youtube-video/youtube-video.component';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+
 import { YoutubeApiService } from '../shared/services/youtube-api.service';
 
 @Component({
@@ -35,32 +35,30 @@ export class YoutubePlaylistComponent implements OnInit {
 
     this.youtubeApiService.getYoutubePlaylist(this.searchData)
       .subscribe(
-      result => {
-        try {
-          if (result) {
-            const resultList: YoutubePlaylist = result;
-            if (this.youtubePlaylist == null) {
-              this.youtubePlaylist = resultList;
-            } else {
-              this.youtubePlaylist.isPlaylist = resultList.isPlaylist;
-              this.youtubePlaylist.totalCount = resultList.totalCount;
-              this.youtubePlaylist.nextToken = resultList.nextToken;
-              this.youtubePlaylist.playlistInfos = this.youtubePlaylist.playlistInfos.concat(resultList.playlistInfos);
+        result => {
+          try {
+            if (result) {
+              const resultList: YoutubePlaylist = result;
+              if (this.youtubePlaylist == null) {
+                this.youtubePlaylist = resultList;
+              } else {
+                this.youtubePlaylist.isPlaylist = resultList.isPlaylist;
+                this.youtubePlaylist.totalCount = resultList.totalCount;
+                this.youtubePlaylist.nextToken = resultList.nextToken;
+                this.youtubePlaylist.playlistInfos = this.youtubePlaylist.playlistInfos.concat(resultList.playlistInfos);
+              }
+
+              this.searchData.nextToken = this.youtubePlaylist.nextToken;
             }
-
-            this.searchData.nextToken = this.youtubePlaylist.nextToken;
+          } catch (error) {
+            console.error(error);
           }
-        } catch (error) {
-          console.error(error);
-        }
-      },
-      err => {
-        console.error(err);
-        this.isVideoListSearching = false;
-      }, () => {
-        this.isVideoListSearching = false;
-      });
-
+        },
+        err => {
+          console.error(err);
+          this.isVideoListSearching = false;
+        }, () => {
+          this.isVideoListSearching = false;
+        });
   }
-
 }

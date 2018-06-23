@@ -1,8 +1,9 @@
-import { Injectable } from '@angular/core';
-import { environment } from '../../../environments/environment';
-import { Observable } from 'rxjs/Observable';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { YoutubeVideo } from 'app/shared/models/youtube-video';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+
+import { environment } from '../../../environments/environment';
+import { YoutubeVideo } from '../models/youtube-video';
 
 @Injectable()
 export class YoutubeApiService {
@@ -23,35 +24,4 @@ export class YoutubeApiService {
     return this.http
       .post<YoutubePlaylist>(`${environment.webApiUrl}/api/v1/Playlists`, JSON.stringify(searchData), { headers: this.headers });
   }
-
-  // getDownload() {
-  //   // return this.http.get(`${environment.webApiUrl}/api/v1/YoutubeConvert`);
-  //   return Observable.create(observer => {
-  //     const req = new XMLHttpRequest();
-  //     req.open('get', `${environment.webApiUrl}/api/v1/YoutubeConvert`);
-  //     req.responseType = 'arraybuffer';
-  //     req.onreadystatechange = function () {
-  //       if (req.readyState === 4 && req.status === 200) {
-  //         observer.next(req.response);
-  //         observer.complete();
-  //       }
-  //     };
-  //     req.send();
-  //   });
-  // }
-
-  // getUrlData(url: string) {
-  //   return Observable.create(observer => {
-  //     const req = new XMLHttpRequest();
-  //     req.open('get', url);
-  //     req.responseType = 'arraybuffer';
-  //     req.onreadystatechange = function () {
-  //       if (req.readyState === 4 && req.status === 200) {
-  //         observer.next(req.response);
-  //         observer.complete();
-  //       }
-  //     };
-  //     req.send();
-  //   });
-  // }
 }

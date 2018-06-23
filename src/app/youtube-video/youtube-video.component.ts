@@ -1,10 +1,10 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material';
 import { DomSanitizer } from '@angular/platform-browser';
+
+import { CaptionInfo } from '../shared/models/youtube-caption-info';
 import { YoutubeVideo } from '../shared/models/youtube-video';
 import { YoutubeApiService } from '../shared/services/youtube-api.service';
-import { CaptionInfo } from '../shared/models/youtube-caption-info';
-import { MatSnackBar } from '@angular/material';
-// import * as FileSaver from 'file-saver';
 
 @Component({
   selector: 'app-youtube-video',
@@ -12,7 +12,6 @@ import { MatSnackBar } from '@angular/material';
   styleUrls: ['./youtube-video.component.css']
 })
 export class YoutubeVideoComponent implements OnInit {
-
   @Input() searchData: SearchData;
 
   youtubeVideo: YoutubeVideo;
@@ -32,25 +31,25 @@ export class YoutubeVideoComponent implements OnInit {
 
     this.youtubeApiService.getYoutubeVideo(this.searchData)
       .subscribe(
-      result => {
-        try {
-          if (result) {
-            this.youtubeVideo = result;
-            // tslint:disable-next-line:max-line-length
-            this.youtubeVideo.embedUrl = this.sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/' + this.youtubeVideo.id);
-            this.selectedVideo = this.youtubeVideo.videoInfos.length > 0 ? this.youtubeVideo.videoInfos[0] : null;
-            this.selectedCaption = this.youtubeVideo.captionInfos.length > 0 ? this.youtubeVideo.captionInfos[0] : null;
+        result => {
+          try {
+            if (result) {
+              this.youtubeVideo = result;
+              // tslint:disable-next-line:max-line-length
+              this.youtubeVideo.embedUrl = this.sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/' + this.youtubeVideo.id);
+              this.selectedVideo = this.youtubeVideo.videoInfos.length > 0 ? this.youtubeVideo.videoInfos[0] : null;
+              this.selectedCaption = this.youtubeVideo.captionInfos.length > 0 ? this.youtubeVideo.captionInfos[0] : null;
+            }
+          } catch (error) {
+            console.error(error);
           }
-        } catch (error) {
-          console.error(error);
-        }
-      },
-      err => {
-        console.error(err);
-        this.isVideoSearching = false;
-      }, () => {
-        this.isVideoSearching = false;
-      });
+        },
+        err => {
+          console.error(err);
+          this.isVideoSearching = false;
+        }, () => {
+          this.isVideoSearching = false;
+        });
   }
 
   private downloadVideo() {
@@ -76,14 +75,6 @@ export class YoutubeVideoComponent implements OnInit {
     evt.initMouseEvent('click', true, true, window, 1, 0, 0, 0, 0, false, false, false, false, 0, null);
     save.dispatchEvent(evt);
     (window.URL).revokeObjectURL(save.href);
-
-    // this.youtubeApiService.getUrlData(fileUrl)
-    //   .subscribe(imageData => {
-    //     FileSaver.saveAs(new Blob([imageData]), this.youtubeVideo.title + this.selectedVideo.videoExtension);
-    //     //URL.createObjectURL(new Blob([imageData]));
-    //     // const url = window.URL.createObjectURL(blob);
-    //     // window.open(url);
-    //   });
   }
 
   pad(num: number, size: number): string {
