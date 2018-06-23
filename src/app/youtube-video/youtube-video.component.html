@@ -47,7 +47,7 @@
         <div class="margin-top-30">
           <mat-form-field class="select-form-right-gap">
             <mat-select style="min-width: 190px;" placeholder="video" [(ngModel)]="selectedVideo" name="video">
-              <mat-option *ngFor="let youtubeVideo of youtubeVideo.youtubeVideoInfos" [value]="youtubeVideo">
+              <mat-option *ngFor="let youtubeVideo of youtubeVideo.videoInfos" [value]="youtubeVideo">
                 <span *ngIf="youtubeVideo.resolution != 0 && youtubeVideo.audioBitrate != 0; else videoOrSound">{{youtubeVideo.resolution}}p - {{youtubeVideo.fileSize}}</span>
                 <ng-template #videoOrSound>
                   <span *ngIf="youtubeVideo.resolution != 0; else noSound">{{youtubeVideo.resolution}}p (mute) - {{youtubeVideo.fileSize}}</span>
@@ -74,11 +74,11 @@
           </button>
         </div>
 
-        <div *ngIf="youtubeVideo.youtubeCaptionInfos.length> 0" class="margin-top-25">
+        <div *ngIf="youtubeVideo.captionInfos.length> 0" class="margin-top-25">
           <mat-form-field class="select-form-right-gap">
             <mat-select style="min-width: 190px;" placeholder="subtitle" [(ngModel)]="selectedCaption" name="caption">
-              <mat-option *ngFor="let youtubeCaption of youtubeVideo.youtubeCaptionInfos" [value]="youtubeCaption">
-                {{youtubeCaption.languageFullName}} ({{youtubeCaption.language}})
+              <mat-option *ngFor="let captionInfo of youtubeVideo.captionInfos" [value]="captionInfo">
+                {{captionInfo.languageFullName}} ({{captionInfo.language}})
               </mat-option>
             </mat-select>
           </mat-form-field>

@@ -6,7 +6,6 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./youtube.component.css']
 })
 export class YoutubeComponent implements OnInit {
-
   searchData: SearchData = {
     inputUrl: '',
     firstUrl: '',
@@ -19,6 +18,6 @@ export class YoutubeComponent implements OnInit {
   };
 
   constructor() { }
-  ngOnInit() { }
 
+  ngOnInit() { }
 }

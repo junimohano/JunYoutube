@@ -1,6 +1,6 @@
 import { SafeUrl } from '@angular/platform-browser/platform-browser';
 
-export interface YoutubeCaptionInfo {
+export interface CaptionInfo {
     id: string;
     language: string;
     languageFullName: string;

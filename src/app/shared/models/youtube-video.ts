@@ -1,5 +1,5 @@
 import { SafeUrl } from '@angular/platform-browser/platform-browser';
-import { YoutubeCaptionInfo } from './youtube-caption-info';
+import { CaptionInfo } from './youtube-caption-info';
 
 export interface YoutubeVideo {
     id: string;
@@ -18,6 +18,6 @@ export interface YoutubeVideo {
 
     embedUrl: SafeUrl;
 
-    youtubeVideoInfos: YoutubeVideoInfo[];
-    youtubeCaptionInfos: YoutubeCaptionInfo[];
+    videoInfos: VideoInfo[];
+    captionInfos: CaptionInfo[];
 }
