@@ -2,7 +2,7 @@ import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { YoutubeVideo } from '../shared/models/youtube-video';
 import { YoutubeApiService } from '../shared/services/youtube-api.service';
-import { YoutubeCaptionInfo } from '../shared/models/youtube-caption-info';
+import { CaptionInfo } from '../shared/models/youtube-caption-info';
 import { MatSnackBar } from '@angular/material';
 // import * as FileSaver from 'file-saver';
 
@@ -16,8 +16,8 @@ export class YoutubeVideoComponent implements OnInit {
   @Input() searchData: SearchData;
 
   youtubeVideo: YoutubeVideo;
-  selectedVideo: YoutubeVideoInfo;
-  selectedCaption: YoutubeCaptionInfo;
+  selectedVideo: VideoInfo;
+  selectedCaption: CaptionInfo;
   isVideoSearching = false;
 
   constructor(private sanitizer: DomSanitizer, private youtubeApiService: YoutubeApiService, private snackBar: MatSnackBar) { }
@@ -38,11 +38,8 @@ export class YoutubeVideoComponent implements OnInit {
             this.youtubeVideo = result;
             // tslint:disable-next-line:max-line-length
             this.youtubeVideo.embedUrl = this.sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/' + this.youtubeVideo.id);
-            // this.youtubeVideo.youtubeCaptionInfos.forEach((cap) => { // foreach statement
-            //   cap.captionSafeUrl = this.sanitizer.bypassSecurityTrustUrl(cap.captionUrl);
-            // });
-            this.selectedVideo = this.youtubeVideo.youtubeVideoInfos.length > 0 ? this.youtubeVideo.youtubeVideoInfos[0] : null;
-            this.selectedCaption = this.youtubeVideo.youtubeCaptionInfos.length > 0 ? this.youtubeVideo.youtubeCaptionInfos[0] : null;
+            this.selectedVideo = this.youtubeVideo.videoInfos.length > 0 ? this.youtubeVideo.videoInfos[0] : null;
+            this.selectedCaption = this.youtubeVideo.captionInfos.length > 0 ? this.youtubeVideo.captionInfos[0] : null;
           }
         } catch (error) {
           console.error(error);

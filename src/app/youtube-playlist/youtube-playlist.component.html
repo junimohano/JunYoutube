@@ -12,9 +12,9 @@
     </ng-template>
 
     <div *ngIf="youtubePlaylist; else noResult">
-        <em class="colorDimgray"><strong><span *ngIf="youtubePlaylist.isPlaylist">Playlist</span><span *ngIf="!youtubePlaylist.isPlaylist">Channel</span> ({{youtubePlaylist.youtubePlaylistInfos.length}} of {{youtubePlaylist.totalCount}})</strong></em>
+        <em class="colorDimgray"><strong><span *ngIf="youtubePlaylist.isPlaylist">Playlist</span><span *ngIf="!youtubePlaylist.isPlaylist">Channel</span> ({{youtubePlaylist.playlistInfos.length}} of {{youtubePlaylist.totalCount}})</strong></em>
         <div style="height: 600px; overflow-y: auto;">
-            <div *ngFor="let youtubePlaylistInfo of youtubePlaylist.youtubePlaylistInfos" (click)="openClick(youtubePlaylistInfo.videoId)" class="selectedPlaylist" style="margin-top: 1px;">
+            <div *ngFor="let youtubePlaylistInfo of youtubePlaylist.playlistInfos" (click)="openClick(youtubePlaylistInfo.videoId)" class="selectedPlaylist" style="margin-top: 1px;">
 
                 <div fxLayout="row" fxLayoutGap="5px">
                     <img [src]="youtubePlaylistInfo.thumbnailUrl" fxFlex="30" fxFlex.md="25" fxFlex.xs="30" height="125" />
@@ -28,7 +28,7 @@
             </div>
 
             <div fxLayout="row" fxLayoutAlign="center center" class="margin-top-20">
-                <button mat-raised-button color="primary" *ngIf="youtubePlaylist.youtubePlaylistInfos.length != youtubePlaylist.totalCount" (click)="getYoutubePlaylist(false)">
+                <button mat-raised-button color="primary" *ngIf="youtubePlaylist.playlistInfos.length != youtubePlaylist.totalCount" (click)="getYoutubePlaylist(false)">
                     Show more
                 </button>
             </div>

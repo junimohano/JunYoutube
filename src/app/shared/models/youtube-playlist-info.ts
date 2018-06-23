@@ -1,4 +1,4 @@
-interface YoutubePlaylistInfo {
+interface PlaylistInfo {
     title: string;
     description: string;
     channelId: string;

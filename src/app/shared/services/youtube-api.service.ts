@@ -16,12 +16,12 @@ export class YoutubeApiService {
 
   getYoutubeVideo(searchData: SearchData): Observable<YoutubeVideo> {
     return this.http
-      .post<YoutubeVideo>(`${environment.webApiUrl}/api/v1/YoutubeVideo`, JSON.stringify(searchData), { headers: this.headers });
+      .post<YoutubeVideo>(`${environment.webApiUrl}/api/v1/Videos`, JSON.stringify(searchData), { headers: this.headers });
   }
 
   getYoutubePlaylist(searchData: SearchData): Observable<YoutubePlaylist> {
     return this.http
-      .post<YoutubePlaylist>(`${environment.webApiUrl}/api/v1/YoutubePlaylist`, JSON.stringify(searchData), { headers: this.headers });
+      .post<YoutubePlaylist>(`${environment.webApiUrl}/api/v1/Playlists`, JSON.stringify(searchData), { headers: this.headers });
   }
 
   // getDownload() {

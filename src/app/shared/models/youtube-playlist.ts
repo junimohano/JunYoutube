@@ -3,5 +3,5 @@ interface YoutubePlaylist {
     totalCount: number;
     nextToken: string;
 
-    youtubePlaylistInfos: YoutubePlaylistInfo[];
+    playlistInfos: PlaylistInfo[];
 }

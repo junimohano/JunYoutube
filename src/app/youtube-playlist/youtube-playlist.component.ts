@@ -45,7 +45,7 @@ export class YoutubePlaylistComponent implements OnInit {
               this.youtubePlaylist.isPlaylist = resultList.isPlaylist;
               this.youtubePlaylist.totalCount = resultList.totalCount;
               this.youtubePlaylist.nextToken = resultList.nextToken;
-              this.youtubePlaylist.youtubePlaylistInfos = this.youtubePlaylist.youtubePlaylistInfos.concat(resultList.youtubePlaylistInfos);
+              this.youtubePlaylist.playlistInfos = this.youtubePlaylist.playlistInfos.concat(resultList.playlistInfos);
             }
 
             this.searchData.nextToken = this.youtubePlaylist.nextToken;

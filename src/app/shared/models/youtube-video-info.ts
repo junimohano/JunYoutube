@@ -1,4 +1,4 @@
-interface YoutubeVideoInfo {
+interface VideoInfo {
     downloadUrl: string;
     videoExtension: string;
     audioBitrate: number;
