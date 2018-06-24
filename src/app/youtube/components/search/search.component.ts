@@ -17,8 +17,9 @@ export class SearchComponent implements OnInit, AfterViewInit {
   @Output() searchPlaylist = new EventEmitter();
 
   searchInput: (event: KeyboardEvent) => void;
-  minimumInputLength = 11;
-  inputDebounceTime = 300;
+  readonly minimumInputLength = 11;
+  readonly exampleUrl = 'https://www.youtube.com/watch?v=VY1eFxgRR-k&list=PL7zsB-C3aNu2yRY2869T0zj1FhtRIu5am';
+  private readonly inputDebounceTime = 300;
 
   constructor(private router: Router) {
   }
@@ -56,5 +57,10 @@ export class SearchComponent implements OnInit, AfterViewInit {
 
     this.searchVideo.emit(this.searchData.inputUrl);
     this.searchPlaylist.emit(true);
+  }
+
+  onClickExampleUrl() {
+    this.searchData.inputUrl = this.exampleUrl;
+    this.searchClick();
   }
 }

@@ -1,14 +1,21 @@
+@import '~src/styles/colors';
 :host {
-  ::ng-deep .mat-form-field-subscript-wrapper {
-    padding: 0 !important;
-    .mat-hint {
-      font-size: 10.5px;
-    }
-  }
   .search-button {
     height: 55px;
     top: -12px;
     font-size: 15px;
     border-radius: 5px;
+  }
+  .example-url-panel {
+    position: absolute;
+    top: 135px;
+    width: 100%;
+    padding: 0 5px;
+    font-size: 10.5px;
+    font-weight: 600;
+    color: $color-charcoal-grey;
+    .example-url {
+      cursor: pointer;
+    }
   }
 }

@@ -13,7 +13,6 @@
            [(ngModel)]="searchData.inputUrl"
            (keyup.enter)="searchClick()"
            (keyup)="searchInput($event)">
-    <mat-hint>ex) https://www.youtube.com/watch?v=VY1eFxgRR-k&list=PL7zsB-C3aNu2yRY2869T0zj1FhtRIu5am</mat-hint>
   </mat-form-field>
 
   <button fxFlex="5"
@@ -22,4 +21,20 @@
           color="accent"
           [disabled]="searchData.inputUrl.length < minimumInputLength"
           (click)="searchClick()">Search</button>
+</div>
+
+<div fxLayout="column"
+     fxLayoutAlign="center center"
+     fxLayoutGap="15px"
+     fxLayoutGap.xs="0"
+     class="example-url-panel">
+  <div></div>
+  <div fxLayout="row"
+       fxLayoutAlign="center center"
+       fxLayoutGap="5px"
+       class="example-url"
+       (click)="onClickExampleUrl()">
+    <span>ex)</span>
+    <span>{{exampleUrl}}</span>
+  </div>
 </div>
