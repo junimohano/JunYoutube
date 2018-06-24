@@ -1,7 +1,8 @@
 <h2 class="colorDimgray">Video Info</h2>
 
 <ng-template #loading>
-  <div fxLayout fxLayoutAlign="center">
+  <div fxLayout
+       fxLayoutAlign="center">
     <mat-spinner color="primary"></mat-spinner>
   </div>
 </ng-template>
@@ -14,30 +15,48 @@
 
   <div *ngIf="youtubeVideo; else noResult">
 
-    <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="20px">
-      <iframe fxFlex="50" fxFlex.md="100" fxFlex.xs="100" [src]='youtubeVideo.embedUrl' height="400" frameborder="0" webkitallowfullscreen
-        mozallowfullscreen allowfullscreen></iframe>
+    <div fxLayout="row"
+         fxLayout.xs="column"
+         fxLayoutGap="20px">
+      <iframe fxFlex="50"
+              fxFlex.md="100"
+              fxFlex.xs="100"
+              [src]='youtubeVideo.embedUrl'
+              height="400"
+              frameborder="0"
+              webkitallowfullscreen
+              mozallowfullscreen
+              allowfullscreen></iframe>
 
-      <div fxFlex="50" fxFlex.md="100" fxFlex.xs="100">
+      <div fxFlex="50"
+           fxFlex.md="100"
+           fxFlex.xs="100">
         <h2>
-          <a [href]="searchData.url" target="_blank">{{youtubeVideo.title}}</a>
+          <a [href]="searchData.url"
+             target="_blank">{{youtubeVideo.title}}</a>
         </h2>
         <p>
-          <span mdTooltip="Published Date" mdTooltipPosition="right">{{youtubeVideo.publishedAt | date:"MM/dd/yy"}}</span>
+          <span mdTooltip="Published Date"
+                mdTooltipPosition="right">{{youtubeVideo.publishedAt | date:"MM/dd/yy"}}</span>
         </p>
         <p>
-          <span mdTooltip="Duration" mdTooltipPosition="right">{{youtubeVideo.duration }}</span>
+          <span mdTooltip="Duration"
+                mdTooltipPosition="right">{{youtubeVideo.duration }}</span>
         </p>
         <p>
-          <span mdTooltip="Views" mdTooltipPosition="right">{{youtubeVideo.viewCount | number}} Views</span>
+          <span mdTooltip="Views"
+                mdTooltipPosition="right">{{youtubeVideo.viewCount | number}} Views</span>
         </p>
         <p>
-          <span mdTooltip="Comments" mdTooltipPosition="right">{{youtubeVideo.commentCount | number}} Comments</span>
+          <span mdTooltip="Comments"
+                mdTooltipPosition="right">{{youtubeVideo.commentCount | number}} Comments</span>
         </p>
         <p>
-          <span mdTooltip="Like" mdTooltipPosition="below">
+          <span mdTooltip="Like"
+                mdTooltipPosition="below">
             <mat-icon>thumb_up</mat-icon> {{youtubeVideo.likeCount | number}}</span>
-          <span mdTooltip="Dislike" mdTooltipPosition="below">
+          <span mdTooltip="Dislike"
+                mdTooltipPosition="below">
             <mat-icon>thumb_down</mat-icon> {{youtubeVideo.dislikeCount | number}}</span>
         </p>
         <div style="max-height: 200px; overflow-y: auto;">
@@ -46,8 +65,12 @@
 
         <div class="margin-top-30">
           <mat-form-field class="select-form-right-gap">
-            <mat-select style="min-width: 190px;" placeholder="video" [(ngModel)]="selectedVideo" name="video">
-              <mat-option *ngFor="let youtubeVideo of youtubeVideo.videoInfos" [value]="youtubeVideo">
+            <mat-select style="min-width: 190px;"
+                        placeholder="video"
+                        [(ngModel)]="selectedVideo"
+                        name="video">
+              <mat-option *ngFor="let youtubeVideo of youtubeVideo.videoInfos"
+                          [value]="youtubeVideo">
                 <span *ngIf="youtubeVideo.resolution != 0 && youtubeVideo.audioBitrate != 0; else videoOrSound">{{youtubeVideo.resolution}}p - {{youtubeVideo.fileSize}}</span>
                 <ng-template #videoOrSound>
                   <span *ngIf="youtubeVideo.resolution != 0; else noSound">{{youtubeVideo.resolution}}p (mute) - {{youtubeVideo.fileSize}}</span>
@@ -59,7 +82,9 @@
             </mat-select>
           </mat-form-field>
 
-          <button mat-raised-button color="primary" (click)="downloadVideo()">
+          <button mat-raised-button
+                  color="primary"
+                  (click)="downloadVideo()">
             <span *ngIf="selectedVideo?.audioBitrate==0; else resolutionTemplate">
               <mat-icon class="wrongPositionOfMdIcon ">volume_off</mat-icon>　　Download
             </span>
@@ -74,16 +99,23 @@
           </button>
         </div>
 
-        <div *ngIf="youtubeVideo.captionInfos.length> 0" class="margin-top-25">
+        <div *ngIf="youtubeVideo.captionInfos.length> 0"
+             class="margin-top-25">
           <mat-form-field class="select-form-right-gap">
-            <mat-select style="min-width: 190px;" placeholder="subtitle" [(ngModel)]="selectedCaption" name="caption">
-              <mat-option *ngFor="let captionInfo of youtubeVideo.captionInfos" [value]="captionInfo">
+            <mat-select style="min-width: 190px;"
+                        placeholder="subtitle"
+                        [(ngModel)]="selectedCaption"
+                        name="caption">
+              <mat-option *ngFor="let captionInfo of youtubeVideo.captionInfos"
+                          [value]="captionInfo">
                 {{captionInfo.languageFullName}} ({{captionInfo.language}})
               </mat-option>
             </mat-select>
           </mat-form-field>
 
-          <button mat-raised-button color="warn" (click)="downloadCaption()">
+          <button mat-raised-button
+                  color="warn"
+                  (click)="downloadCaption()">
             <mat-icon>closed_caption</mat-icon> Download
           </button>
         </div>

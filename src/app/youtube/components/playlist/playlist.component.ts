@@ -1,13 +1,14 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
-import { YoutubeApiService } from '../shared/services/youtube-api.service';
+import { YoutubeApiService } from '../../services/youtube-api.service';
+
 
 @Component({
-  selector: 'app-youtube-playlist',
-  templateUrl: './youtube-playlist.component.html',
-  styleUrls: ['./youtube-playlist.component.css']
+  selector: 'app-playlist',
+  templateUrl: './playlist.component.html',
+  styleUrls: ['./playlist.component.scss']
 })
-export class YoutubePlaylistComponent implements OnInit {
+export class PlaylistComponent implements OnInit {
 
   @Input() searchData: SearchData;
   @Output() youtubeVideoEvent = new EventEmitter();

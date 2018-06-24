@@ -1,67 +1,38 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { routes } from './app.router';
-
-import { FlexLayoutModule } from '@angular/flex-layout';
 import 'hammerjs';
 
-import { YoutubeApiService } from './shared/services/youtube-api.service';
+import { NgModule } from '@angular/core';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatButtonModule, MatIconModule, MatMenuModule, MatToolbarModule } from '@angular/material';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { routes } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { YoutubePlaylistComponent } from './youtube-playlist/youtube-playlist.component';
-import { YoutubeVideoComponent } from './youtube-video/youtube-video.component';
-import { SearchComponent } from './search/search.component';
-import { NavComponent } from './nav/nav.component';
-import { YoutubeComponent } from './youtube/youtube.component';
-import { FooterComponent } from './footer/footer.component';
-import { HttpClientModule } from '@angular/common/http';
-import {
+import { FooterComponent } from './shared/components/footer/footer.component';
+import { HeaderComponent } from './shared/components/header/header.component';
+
+const materialModules = [
   MatToolbarModule,
-  MatSnackBarModule,
-  MatTooltipModule,
-  MatCardModule,
   MatButtonModule,
-  MatInputModule,
   MatIconModule,
   MatMenuModule,
-  MatProgressSpinnerModule,
-  MatSelectModule,
-  MatFormFieldModule
-} from '@angular/material';
+  FlexLayoutModule
+];
 
 @NgModule({
   declarations: [
     AppComponent,
-    YoutubePlaylistComponent,
-    YoutubeVideoComponent,
-    SearchComponent,
-    NavComponent,
-    YoutubeComponent,
+    HeaderComponent,
     FooterComponent
   ],
   imports: [
     BrowserModule,
-    FormsModule,
-    HttpClientModule,
     BrowserAnimationsModule,
-
     routes,
-    MatToolbarModule,
-    MatInputModule,
-    MatFormFieldModule,
-    MatButtonModule,
-    MatCardModule,
-    MatTooltipModule,
-    MatSnackBarModule,
-    MatIconModule,
-    MatMenuModule,
-    MatProgressSpinnerModule,
-    MatSelectModule,
-    FlexLayoutModule,
+    ...materialModules
   ],
-  providers: [YoutubeApiService],
-  bootstrap: [AppComponent]
+  bootstrap: [
+    AppComponent
+  ]
 })
 export class AppModule { }

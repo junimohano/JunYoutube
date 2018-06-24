@@ -1,0 +1,21 @@
+<div fxLayout
+     fxLayoutAlign="center center"
+     fxLayoutGap="10px"
+     class="margin-top-10">
+  <mat-form-field fxFlex="70"
+                  fxFlex.lg="40"
+                  fxFlex.xl="40">
+    <input matInput
+           type="search"
+           placeholder="Youtube Url"
+           [(ngModel)]="searchData.inputUrl"
+           (keyup.enter)="searchClick()"
+           (keyup)="searchInput($event)">
+  </mat-form-field>
+
+  <button fxFlex="5"
+          mat-raised-button
+          color="accent"
+          (click)="searchClick()"
+          [disabled]="searchData.inputUrl.length < minimumInputLength">Search</button>
+</div>
