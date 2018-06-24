@@ -11,8 +11,8 @@ import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 export class SearchComponent implements OnInit, AfterViewInit {
 
   @Input() searchData: SearchData;
-  @Output() youtubeVideoEvent = new EventEmitter();
-  @Output() youtubePlaylistEvent = new EventEmitter();
+  @Output() searchVideo = new EventEmitter();
+  @Output() searchPlaylist = new EventEmitter();
 
   searchInput: (event: KeyboardEvent) => void;
   minimumInputLength = 11;
@@ -52,7 +52,7 @@ export class SearchComponent implements OnInit, AfterViewInit {
     this.searchData.nextToken = null;
     this.searchData.firstUrl = this.searchData.inputUrl;
 
-    this.youtubeVideoEvent.emit(this.searchData.inputUrl);
-    this.youtubePlaylistEvent.emit(true);
+    this.searchVideo.emit(this.searchData.inputUrl);
+    this.searchPlaylist.emit(true);
   }
 }

@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { environment } from '../../../environments/environment';
-import { YoutubeVideo } from '../models/video.model';
+import { Video } from '../models/video.model';
 
 @Injectable()
 export class YoutubeApiService {
@@ -15,13 +15,13 @@ export class YoutubeApiService {
     this.headers = this.headers.set('Content-Type', 'application/json; charset=utf-8');
   }
 
-  getYoutubeVideo(searchData: SearchData): Observable<YoutubeVideo> {
+  getYoutubeVideo(searchData: SearchData): Observable<Video> {
     return this.http
-      .post<YoutubeVideo>(`${environment.webApiUrl}${this.apiUrl}/Videos`, searchData, { headers: this.headers });
+      .post<Video>(`${environment.webApiUrl}${this.apiUrl}/Videos`, searchData, { headers: this.headers });
   }
 
-  getYoutubePlaylist(searchData: SearchData): Observable<YoutubePlaylist> {
+  getYoutubePlaylist(searchData: SearchData): Observable<Playlist> {
     return this.http
-      .post<YoutubePlaylist>(`${environment.webApiUrl}${this.apiUrl}/Playlists`, searchData, { headers: this.headers });
+      .post<Playlist>(`${environment.webApiUrl}${this.apiUrl}/Playlists`, searchData, { headers: this.headers });
   }
 }

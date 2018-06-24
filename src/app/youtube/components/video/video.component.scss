@@ -1,16 +1,25 @@
-.wrongPositionOfMdIcon {
+:host {
+  .video-info {
+    color: dimgray;
+  }
+  .video-description {
+    max-height: 200px;
+    overflow-y: auto;
+  }
+  .select {
+    min-width: 190px;
+  }
+  .download-icon {
     position: absolute;
     top: 5px;
-}
-
-.colorDimgray {
-    color: dimgray;
-}
-
-.progress-small {
+  }
+  .progress-small {
     width: 30px;
-}
-
-.mat-form-field.select-form-right-gap {
-  padding-right: 10px;
+  }
+  .mat-form-field.select-form-right-gap {
+    padding-right: 10px;
+  }
+  .video-panel-bottom-gap {
+    margin-bottom: 20px;
+  }
 }

@@ -1,8 +1,16 @@
-.selectedPlaylist:hover {
-    background-color: dimgray;
-    color: white;
-}
-
-.colorDimgray {
+:host {
+  .playlist-text {
     color: dimgray;
+  }
+  .playlist-panel {
+    height: 600px;
+    overflow-y: auto;
+    .selected-playlist {
+      margin-top: 1px;
+      &:hover {
+        background-color: dimgray;
+        color: white;
+      }
+    }
+  }
 }

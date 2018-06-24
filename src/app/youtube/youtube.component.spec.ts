@@ -8,9 +8,9 @@ describe('YoutubeComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ YoutubeComponent ]
+      declarations: [YoutubeComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

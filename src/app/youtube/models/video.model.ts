@@ -2,7 +2,7 @@ import { SafeUrl } from '@angular/platform-browser/platform-browser';
 
 import { CaptionInfo } from './caption-info.model';
 
-export interface YoutubeVideo {
+export interface Video {
   id: string;
   title: string;
   description: string;

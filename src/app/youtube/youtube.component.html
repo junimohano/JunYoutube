@@ -1,6 +1,6 @@
 <app-search [searchData]="searchData"
-            (youtubeVideoEvent)="youtubeVideo.getYoutubeVideo($event)"
-            (youtubePlaylistEvent)="youtubePlaylist.getYoutubePlaylist($event)"></app-search>
+            (searchVideo)="onSearchVideo($event)"
+            (searchPlaylist)="onSearchPlaylist($event)"></app-search>
 
 <div fxLayout="row"
      fxLayout.xs="column"
@@ -10,15 +10,22 @@
   <mat-card fxFlex="60"
             fxFlex.xs="100"
             fxFlex.md="80">
-    <app-video #youtubeVideo
-               [searchData]="searchData"></app-video>
+    <app-video [searchData]="searchData"
+               [video]="video"
+               [selectedVideoInfo]="selectedVideoInfo"
+               [selectedCaptionInfo]="selectedCaptionInfo"
+               [isLoadingVideo]="isLoadingVideo"
+               (downloadVideo)="onDownloadVideo()"
+               (downloadCaption)="onDownloadCaption()"></app-video>
   </mat-card>
 
   <mat-card fxFlex="40"
             fxFlex.xs="100"
             fxFlex.md="20">
-    <app-playlist #youtubePlaylist
-                  [searchData]="searchData"
-                  (youtubeVideoEvent)="youtubeVideo.getYoutubeVideo($event)"></app-playlist>
+    <app-playlist [searchData]="searchData"
+                  [playlist]="playlist"
+                  [isLoadingPlaylist]="isLoadingPlaylist"
+                  (searchVideo)="onSearchVideo($event)"
+                  (searchPlaylist)="onSearchPlaylist($event)"></app-playlist>
   </mat-card>
 </div>

@@ -1,4 +1,4 @@
-interface YoutubePlaylist {
+interface Playlist {
     isPlaylist: boolean;
     totalCount: number;
     nextToken: string;
