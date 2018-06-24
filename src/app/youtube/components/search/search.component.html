@@ -1,21 +1,25 @@
-<div fxLayout
+<div fxLayout="row"
      fxLayoutAlign="center center"
      fxLayoutGap="10px"
-     class="margin-top-10">
+     class="margin-top-10 margin-bottom-15">
   <mat-form-field fxFlex="70"
                   fxFlex.lg="40"
-                  fxFlex.xl="40">
+                  fxFlex.xl="40"
+                  appearance="outline">
+    <mat-label>Video URL</mat-label>
     <input matInput
            type="search"
-           placeholder="Youtube Url"
+           placeholder="Please enter youtube video URL"
            [(ngModel)]="searchData.inputUrl"
            (keyup.enter)="searchClick()"
            (keyup)="searchInput($event)">
+    <mat-hint>ex) https://www.youtube.com/watch?v=VY1eFxgRR-k&list=PL7zsB-C3aNu2yRY2869T0zj1FhtRIu5am</mat-hint>
   </mat-form-field>
 
   <button fxFlex="5"
+          class="search-button"
           mat-raised-button
           color="accent"
-          (click)="searchClick()"
-          [disabled]="searchData.inputUrl.length < minimumInputLength">Search</button>
+          [disabled]="searchData.inputUrl.length < minimumInputLength"
+          (click)="searchClick()">Search</button>
 </div>

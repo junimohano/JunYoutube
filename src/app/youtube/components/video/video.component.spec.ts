@@ -1,22 +1,25 @@
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { YoutubeVideoComponent } from './video.component';
+import { VideoComponent } from './video.component';
 
-describe('YoutubeVideoComponent', () => {
-  let component: YoutubeVideoComponent;
-  let fixture: ComponentFixture<YoutubeVideoComponent>;
+describe('VideoComponent', () => {
+  let component: VideoComponent;
+  let fixture: ComponentFixture<VideoComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ YoutubeVideoComponent ]
+      declarations: [VideoComponent],
+      schemas: [
+        CUSTOM_ELEMENTS_SCHEMA
+      ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(YoutubeVideoComponent);
+    fixture = TestBed.createComponent(VideoComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create', () => {

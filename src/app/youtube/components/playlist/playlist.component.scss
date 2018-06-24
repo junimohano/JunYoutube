@@ -1,8 +1,25 @@
-.selectedPlaylist:hover {
-    background-color: dimgray;
-    color: white;
-}
-
-.colorDimgray {
-    color: dimgray;
+@import '~src/styles/colors';
+@import '~src/styles/mixins/scroll-bar';
+:host {
+  .playlist-text {
+    color: $color-charcoal-grey;
+  }
+  .playlist-panel {
+    height: 600px;
+    overflow-y: auto;
+    @include scroll-bar();
+    .playlistinfo {
+      margin-top: 1px;
+      cursor: pointer;
+      &.selected,
+      &:hover {
+        background-color: $color-charcoal-grey;
+        color: $color-white-white;
+      }
+      &.selected {
+        cursor: none;
+        pointer-events: none;
+      }
+    }
+  }
 }

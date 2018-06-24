@@ -1,0 +1,14 @@
+:host {
+  ::ng-deep .mat-form-field-subscript-wrapper {
+    padding: 0 !important;
+    .mat-hint {
+      font-size: 11px;
+    }
+  }
+  .search-button {
+    height: 55px;
+    top: -12px;
+    font-size: 15px;
+    border-radius: 5px;
+  }
+}

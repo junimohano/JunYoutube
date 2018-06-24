@@ -1,4 +1,4 @@
-interface PlaylistInfo {
+export interface PlaylistInfo {
     title: string;
     description: string;
     channelId: string;

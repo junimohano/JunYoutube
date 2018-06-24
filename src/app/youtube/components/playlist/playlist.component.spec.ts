@@ -1,22 +1,25 @@
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { YoutubePlaylistComponent } from './playlist.component';
+import { PlaylistComponent } from './playlist.component';
 
-describe('YoutubePlaylistComponent', () => {
-  let component: YoutubePlaylistComponent;
-  let fixture: ComponentFixture<YoutubePlaylistComponent>;
+describe('PlaylistComponent', () => {
+  let component: PlaylistComponent;
+  let fixture: ComponentFixture<PlaylistComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ YoutubePlaylistComponent ]
+      declarations: [PlaylistComponent],
+      schemas: [
+        CUSTOM_ELEMENTS_SCHEMA
+      ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(YoutubePlaylistComponent);
+    fixture = TestBed.createComponent(PlaylistComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create', () => {

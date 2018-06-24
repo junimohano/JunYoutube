@@ -1,65 +1,35 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
-import { YoutubeApiService } from '../../services/youtube-api.service';
-
+import { Playlist } from '../../models/playlist.model';
+import { SearchData } from '../../models/search-data.model';
+import { Video } from '../../models/video.model';
 
 @Component({
   selector: 'app-playlist',
   templateUrl: './playlist.component.html',
-  styleUrls: ['./playlist.component.scss']
+  styleUrls: ['./playlist.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PlaylistComponent implements OnInit {
-
   @Input() searchData: SearchData;
-  @Output() youtubeVideoEvent = new EventEmitter();
+  @Input() video: Video;
+  @Input() playlist: Playlist;
+  @Input() selectedVideoId: string;
+  @Input() isLoadingPlaylist: boolean;
+  @Input() isLoadingPlaylistItems: boolean;
 
-  youtubePlaylist: YoutubePlaylist;
-  isVideoListSearching = false;
+  @Output() searchVideo = new EventEmitter<string>();
+  @Output() searchPlaylist = new EventEmitter<boolean>();
 
-  constructor(private youtubeApiService: YoutubeApiService) { }
+  private readonly youtubeUrl = 'https://www.youtube.com/watch?v=';
+
+  constructor() { }
 
   ngOnInit() {
   }
 
-  openClick(videoUrl) {
-    this.youtubeVideoEvent.emit('https://www.youtube.com/watch?v=' + videoUrl);
-  }
-
-  getYoutubePlaylist(isReset: boolean) {
-
-    if (isReset) {
-      this.isVideoListSearching = true;
-      this.youtubePlaylist = null;
-    } else {
-      this.searchData.url = this.searchData.firstUrl;
-    }
-
-    this.youtubeApiService.getYoutubePlaylist(this.searchData)
-      .subscribe(
-        result => {
-          try {
-            if (result) {
-              const resultList: YoutubePlaylist = result;
-              if (this.youtubePlaylist == null) {
-                this.youtubePlaylist = resultList;
-              } else {
-                this.youtubePlaylist.isPlaylist = resultList.isPlaylist;
-                this.youtubePlaylist.totalCount = resultList.totalCount;
-                this.youtubePlaylist.nextToken = resultList.nextToken;
-                this.youtubePlaylist.playlistInfos = this.youtubePlaylist.playlistInfos.concat(resultList.playlistInfos);
-              }
-
-              this.searchData.nextToken = this.youtubePlaylist.nextToken;
-            }
-          } catch (error) {
-            console.error(error);
-          }
-        },
-        err => {
-          console.error(err);
-          this.isVideoListSearching = false;
-        }, () => {
-          this.isVideoListSearching = false;
-        });
+  onClick(videoId: string) {
+    const videoUrl = `${this.youtubeUrl}${videoId}`;
+    this.searchVideo.emit(videoUrl);
   }
 }

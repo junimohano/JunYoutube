@@ -1,4 +1,4 @@
-interface VideoInfo {
+export interface VideoInfo {
     downloadUrl: string;
     videoExtension: string;
     audioBitrate: number;

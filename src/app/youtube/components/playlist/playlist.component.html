@@ -1,28 +1,24 @@
-<h2 class="colorDimgray">PlayList / Channel</h2>
+<h2 class="playlist-text">PlayList / Channel</h2>
 
-<ng-template #loading>
+<div *ngIf="isLoadingPlaylist; else content">
   <div fxLayout
        fxLayoutAlign="center">
-    <mat-spinner color="accent"></mat-spinner>
+    <mat-spinner color="accent"
+                 diameter="50"></mat-spinner>
   </div>
-</ng-template>
+</div>
 
-<div *ngIf="!isVideoListSearching; else loading">
-  <ng-template #noResult>
-    <em>No list</em>
-  </ng-template>
-
-  <div *ngIf="youtubePlaylist; else noResult">
-    <em class="colorDimgray"><strong><span *ngIf="youtubePlaylist.isPlaylist">Playlist</span><span *ngIf="!youtubePlaylist.isPlaylist">Channel</span> ({{youtubePlaylist.playlistInfos.length}} of {{youtubePlaylist.totalCount}})</strong></em>
-    <div style="height: 600px; overflow-y: auto;">
-      <div *ngFor="let youtubePlaylistInfo of youtubePlaylist.playlistInfos"
-           (click)="openClick(youtubePlaylistInfo.videoId)"
-           class="selectedPlaylist"
-           style="margin-top: 1px;">
-
+<ng-template #content>
+  <div *ngIf="playlist; else noResult">
+    <em class="playlist-text"><strong><span *ngIf="playlist.isPlaylist">Playlist</span><span *ngIf="!playlist.isPlaylist">Channel</span> ({{playlist.playlistInfos.length}} of {{playlist.totalCount}})</strong></em>
+    <div class="playlist-panel">
+      <div *ngFor="let playlistInfo of playlist.playlistInfos"
+           class="playlistinfo"
+           [class.selected]="video?.id === playlistInfo.videoId"
+           (click)="onClick(playlistInfo.videoId)">
         <div fxLayout="row"
              fxLayoutGap="5px">
-          <img [src]="youtubePlaylistInfo.thumbnailUrl"
+          <img [src]="playlistInfo.thumbnailUrl"
                fxFlex="30"
                fxFlex.md="25"
                fxFlex.xs="30"
@@ -31,23 +27,33 @@
           <div fxFlex="70"
                fxFlex.md="75"
                fxFlex.xs="70">
-            <strong>{{youtubePlaylistInfo.title}}</strong>
-            <p *ngIf="youtubePlaylist.isPlaylist"><strong>({{youtubePlaylistInfo.position + 1}})</strong> {{youtubePlaylistInfo.channelTitle}}</p>
-            <p><em>{{youtubePlaylistInfo.publishedAt}}</em></p>
+            <strong>{{playlistInfo.title}}</strong>
+            <p *ngIf="playlist.isPlaylist"><strong>({{playlistInfo.position + 1}})</strong> {{playlistInfo.channelTitle}}</p>
+            <p><em>{{playlistInfo.publishedAt}}</em></p>
           </div>
         </div>
       </div>
 
-      <div fxLayout="row"
+      <div fxLayout="column"
            fxLayoutAlign="center center"
            class="margin-top-20">
+        <mat-spinner *ngIf="isLoadingPlaylistItems"
+                     class="margin-bottom-10"
+                     color="accent"
+                     diameter="30"></mat-spinner>
+
         <button mat-raised-button
                 color="primary"
-                *ngIf="youtubePlaylist.playlistInfos.length != youtubePlaylist.totalCount"
-                (click)="getYoutubePlaylist(false)">
+                *ngIf="playlist.playlistInfos.length != playlist.totalCount"
+                [disabled]="isLoadingPlaylistItems"
+                (click)="searchPlaylist.emit(false)">
             Show more
         </button>
       </div>
     </div>
   </div>
-</div>
+
+  <ng-template #noResult>
+    <em>No list</em>
+  </ng-template>
+</ng-template>

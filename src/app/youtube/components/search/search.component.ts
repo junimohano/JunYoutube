@@ -1,18 +1,20 @@
-import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
+import { SearchData } from '../../models/search-data.model';
+
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
-  styleUrls: ['./search.component.scss']
+  styleUrls: ['./search.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SearchComponent implements OnInit, AfterViewInit {
-
   @Input() searchData: SearchData;
-  @Output() youtubeVideoEvent = new EventEmitter();
-  @Output() youtubePlaylistEvent = new EventEmitter();
+  @Output() searchVideo = new EventEmitter();
+  @Output() searchPlaylist = new EventEmitter();
 
   searchInput: (event: KeyboardEvent) => void;
   minimumInputLength = 11;
@@ -52,7 +54,7 @@ export class SearchComponent implements OnInit, AfterViewInit {
     this.searchData.nextToken = null;
     this.searchData.firstUrl = this.searchData.inputUrl;
 
-    this.youtubeVideoEvent.emit(this.searchData.inputUrl);
-    this.youtubePlaylistEvent.emit(true);
+    this.searchVideo.emit(this.searchData.inputUrl);
+    this.searchPlaylist.emit(true);
   }
 }
