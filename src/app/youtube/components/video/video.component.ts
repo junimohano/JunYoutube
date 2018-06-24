@@ -1,12 +1,15 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
+import { SearchData } from '../../models/search-data.model';
+import { VideoInfo } from '../../models/video-info.model';
 import { Video } from '../../models/video.model';
 import { CaptionInfo } from './../../models/caption-info.model';
 
 @Component({
   selector: 'app-video',
   templateUrl: './video.component.html',
-  styleUrls: ['./video.component.scss']
+  styleUrls: ['./video.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class VideoComponent implements OnInit {
   @Input() searchData: SearchData;
@@ -17,6 +20,8 @@ export class VideoComponent implements OnInit {
 
   @Output() downloadVideo = new EventEmitter<any>();
   @Output() downloadCaption = new EventEmitter<any>();
+  @Output() changeSelectedVideoInfo = new EventEmitter<VideoInfo>();
+  @Output() changeSelectedCaptionInfo = new EventEmitter<CaptionInfo>();
 
   constructor() { }
 

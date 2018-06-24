@@ -69,7 +69,8 @@
             <mat-select class="select"
                         name="video"
                         placeholder="video"
-                        [(ngModel)]="selectedVideoInfo">
+                        [ngModel]="selectedVideoInfo"
+                        (selectionChange)="changeSelectedVideoInfo.emit($event.value)">
               <mat-option *ngFor="let videoInfo of video.videoInfos"
                           [value]="videoInfo">
                 <span *ngIf="videoInfo.resolution != 0 && videoInfo.audioBitrate != 0; else videoOrSound">{{videoInfo.resolution}}p - {{videoInfo.fileSize}}</span>
@@ -106,7 +107,8 @@
             <mat-select class="select"
                         name="caption"
                         placeholder="subtitle"
-                        [(ngModel)]="selectedCaptionInfo">
+                        [ngModel]="selectedCaptionInfo"
+                        (selectionChange)="changeSelectedCaptionInfo.emit($event.value)">
               <mat-option *ngFor="let captionInfo of video.captionInfos"
                           [value]="captionInfo">
                 {{captionInfo.languageFullName}} ({{captionInfo.language}})

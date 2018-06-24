@@ -1,4 +1,4 @@
-interface SearchData {
+export interface SearchData {
     inputUrl: string | undefined;
     firstUrl: string;
 

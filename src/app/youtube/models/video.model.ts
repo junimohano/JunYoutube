@@ -1,6 +1,7 @@
 import { SafeUrl } from '@angular/platform-browser/platform-browser';
 
 import { CaptionInfo } from './caption-info.model';
+import { VideoInfo } from './video-info.model';
 
 export interface Video {
   id: string;

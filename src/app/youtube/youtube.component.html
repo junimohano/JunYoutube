@@ -16,7 +16,9 @@
                [selectedCaptionInfo]="selectedCaptionInfo"
                [isLoadingVideo]="isLoadingVideo"
                (downloadVideo)="onDownloadVideo()"
-               (downloadCaption)="onDownloadCaption()"></app-video>
+               (downloadCaption)="onDownloadCaption()"
+               (changeSelectedVideoInfo)="onChangeSelectedVideoInfo($event)"
+               (changeSelectedCaptionInfo)="onChangeSelectedCaptionInfo($event)"></app-video>
   </mat-card>
 
   <mat-card fxFlex="40"

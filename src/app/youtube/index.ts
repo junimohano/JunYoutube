@@ -5,4 +5,8 @@ export * from './components/playlist/playlist.component';
 export * from './components/search/search.component';
 export * from './services/youtube-api.service';
 export * from './models/caption-info.model';
+export * from './models/playlist-info.model';
+export * from './models/playlist.model';
+export * from './models/search-data.model';
+export * from './models/video-info.model';
 export * from './models/video.model';

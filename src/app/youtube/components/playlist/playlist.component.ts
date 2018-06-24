@@ -1,11 +1,14 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
+import { Playlist } from '../../models/playlist.model';
+import { SearchData } from '../../models/search-data.model';
 import { Video } from '../../models/video.model';
 
 @Component({
   selector: 'app-playlist',
   templateUrl: './playlist.component.html',
-  styleUrls: ['./playlist.component.scss']
+  styleUrls: ['./playlist.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PlaylistComponent implements OnInit {
   @Input() searchData: SearchData;

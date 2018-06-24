@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { environment } from '../../../environments/environment';
+import { Playlist } from '../models/playlist.model';
+import { SearchData } from '../models/search-data.model';
 import { Video } from '../models/video.model';
 
 @Injectable()

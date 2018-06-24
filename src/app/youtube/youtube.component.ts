@@ -1,15 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
 import { DomSanitizer } from '@angular/platform-browser';
 
 import { CaptionInfo } from './models/caption-info.model';
+import { Playlist } from './models/playlist.model';
+import { SearchData } from './models/search-data.model';
+import { VideoInfo } from './models/video-info.model';
 import { Video } from './models/video.model';
 import { YoutubeApiService } from './services/youtube-api.service';
 
 @Component({
   selector: 'app-youtube',
   templateUrl: './youtube.component.html',
-  styleUrls: ['./youtube.component.scss']
+  styleUrls: ['./youtube.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class YoutubeComponent implements OnInit {
   searchData: SearchData = {
@@ -34,7 +38,8 @@ export class YoutubeComponent implements OnInit {
   constructor(
     private sanitizer: DomSanitizer,
     private youtubeApiService: YoutubeApiService,
-    private snackBar: MatSnackBar) { }
+    private snackBar: MatSnackBar,
+    private cdr: ChangeDetectorRef) { }
 
   ngOnInit() {
   }
@@ -117,8 +122,17 @@ export class YoutubeComponent implements OnInit {
     });
   }
 
+  onChangeSelectedVideoInfo(videoInfo: VideoInfo) {
+    this.selectedVideoInfo = videoInfo;
+  }
+
+  onChangeSelectedCaptionInfo(captionInfo: CaptionInfo) {
+    this.selectedCaptionInfo = captionInfo;
+  }
+
   private setLoadingVideo(isLoading: boolean): void {
     this.isLoadingVideo = isLoading;
+    this.cdr.markForCheck();
   }
 
   private setLoadingPlaylist(isReset: boolean, isLoading: boolean): void {
@@ -127,6 +141,8 @@ export class YoutubeComponent implements OnInit {
     } else {
       this.isLoadingPlaylistItems = isLoading;
     }
+
+    this.cdr.markForCheck();
   }
 
   private downloadFile(fileUrl: string): void {

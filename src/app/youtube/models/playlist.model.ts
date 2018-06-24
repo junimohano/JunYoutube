@@ -1,7 +1,9 @@
-interface Playlist {
-    isPlaylist: boolean;
-    totalCount: number;
-    nextToken: string;
+import { PlaylistInfo } from './playlist-info.model';
 
-    playlistInfos: PlaylistInfo[];
+export interface Playlist {
+  isPlaylist: boolean;
+  totalCount: number;
+  nextToken: string;
+
+  playlistInfos: PlaylistInfo[];
 }
