@@ -2,16 +2,16 @@ import { Component, Input, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
 import { DomSanitizer } from '@angular/platform-browser';
 
-import { CaptionInfo } from '../shared/models/youtube-caption-info';
-import { YoutubeVideo } from '../shared/models/youtube-video';
-import { YoutubeApiService } from '../shared/services/youtube-api.service';
+import { CaptionInfo } from '../../models/caption-info.model';
+import { YoutubeVideo } from '../../models/video.model';
+import { YoutubeApiService } from '../../services/youtube-api.service';
 
 @Component({
-  selector: 'app-youtube-video',
-  templateUrl: './youtube-video.component.html',
-  styleUrls: ['./youtube-video.component.css']
+  selector: 'app-video',
+  templateUrl: './video.component.html',
+  styleUrls: ['./video.component.scss']
 })
-export class YoutubeVideoComponent implements OnInit {
+export class VideoComponent implements OnInit {
   @Input() searchData: SearchData;
 
   youtubeVideo: YoutubeVideo;
@@ -19,7 +19,10 @@ export class YoutubeVideoComponent implements OnInit {
   selectedCaption: CaptionInfo;
   isVideoSearching = false;
 
-  constructor(private sanitizer: DomSanitizer, private youtubeApiService: YoutubeApiService, private snackBar: MatSnackBar) { }
+  constructor(
+    private sanitizer: DomSanitizer,
+    private youtubeApiService: YoutubeApiService,
+    private snackBar: MatSnackBar) { }
 
   ngOnInit() { }
 
@@ -84,5 +87,4 @@ export class YoutubeVideoComponent implements OnInit {
     }
     return s;
   }
-
 }
