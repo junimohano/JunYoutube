@@ -122,11 +122,11 @@ export class YoutubeComponent implements OnInit {
     });
   }
 
-  onChangeSelectedVideoInfo(videoInfo: VideoInfo) {
+  onChangeSelectedVideoInfo(videoInfo: VideoInfo): void {
     this.selectedVideoInfo = videoInfo;
   }
 
-  onChangeSelectedCaptionInfo(captionInfo: CaptionInfo) {
+  onChangeSelectedCaptionInfo(captionInfo: CaptionInfo): void {
     this.selectedCaptionInfo = captionInfo;
   }
 
