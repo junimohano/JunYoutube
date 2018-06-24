@@ -23,8 +23,10 @@
             fxFlex.xs="100"
             fxFlex.md="20">
     <app-playlist [searchData]="searchData"
+                  [video]="video"
                   [playlist]="playlist"
                   [isLoadingPlaylist]="isLoadingPlaylist"
+                  [isLoadingPlaylistItems]="isLoadingPlaylistItems"
                   (searchVideo)="onSearchVideo($event)"
                   (searchPlaylist)="onSearchPlaylist($event)"></app-playlist>
   </mat-card>

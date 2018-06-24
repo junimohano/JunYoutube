@@ -26,8 +26,10 @@ export class YoutubeComponent implements OnInit {
   playlist: Playlist;
   selectedVideoInfo: VideoInfo;
   selectedCaptionInfo: CaptionInfo;
+  selectedVideoId: string;
   isLoadingVideo = false;
   isLoadingPlaylist = false;
+  isLoadingPlaylistItems = false;
 
   constructor(
     private sanitizer: DomSanitizer,
@@ -38,11 +40,9 @@ export class YoutubeComponent implements OnInit {
   }
 
   onSearchVideo(url: string): void {
-    this.isLoadingVideo = true;
     this.video = null;
-
     this.searchData.url = url;
-
+    this.setLoadingVideo(true);
     this.youtubeApiService.getYoutubeVideo(this.searchData)
       .subscribe(
         result => {
@@ -60,21 +60,20 @@ export class YoutubeComponent implements OnInit {
         },
         err => {
           console.error(err);
-          this.isLoadingVideo = false;
+          this.setLoadingVideo(false);
         }, () => {
-          this.isLoadingVideo = false;
+          this.setLoadingVideo(false);
         });
   }
 
   onSearchPlaylist(isReset: boolean): void {
-
     if (isReset) {
-      this.isLoadingPlaylist = true;
       this.playlist = null;
     } else {
       this.searchData.url = this.searchData.firstUrl;
     }
 
+    this.setLoadingPlaylist(isReset, true);
     this.youtubeApiService.getYoutubePlaylist(this.searchData)
       .subscribe(
         result => {
@@ -98,9 +97,9 @@ export class YoutubeComponent implements OnInit {
         },
         err => {
           console.error(err);
-          this.isLoadingPlaylist = false;
+          this.setLoadingPlaylist(isReset, false);
         }, () => {
-          this.isLoadingPlaylist = false;
+          this.setLoadingPlaylist(isReset, false);
         });
   }
 
@@ -116,6 +115,18 @@ export class YoutubeComponent implements OnInit {
     this.snackBar.open(`downloading ${this.selectedCaptionInfo.languageFullName}...`, 'close', {
       duration: 2000,
     });
+  }
+
+  private setLoadingVideo(isLoading: boolean): void {
+    this.isLoadingVideo = isLoading;
+  }
+
+  private setLoadingPlaylist(isReset: boolean, isLoading: boolean): void {
+    if (isReset) {
+      this.isLoadingPlaylist = isLoading;
+    } else {
+      this.isLoadingPlaylistItems = isLoading;
+    }
   }
 
   private downloadFile(fileUrl: string): void {

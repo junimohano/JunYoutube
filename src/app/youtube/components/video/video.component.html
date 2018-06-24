@@ -3,13 +3,13 @@
 <div *ngIf="isLoadingVideo; else content">
   <div fxLayout
        fxLayoutAlign="center">
-    <mat-spinner color="primary"></mat-spinner>
+    <mat-spinner color="primary"
+                 diameter="50"></mat-spinner>
   </div>
 </div>
 
 <ng-template #content>
   <div *ngIf="video; else noResult">
-
     <div fxLayout="row"
          fxLayout.xs="column"
          fxLayoutGap="20px">
@@ -26,35 +26,41 @@
       <div fxFlex="50"
            fxFlex.md="100"
            fxFlex.xs="100">
-        <h2>
+        <h2 class="title">
           <a target="_blank"
              [href]="searchData.url">{{video.title}}</a>
         </h2>
         <p>
-          <span mdTooltip="Published Date"
+          <span class="video-text"
+                mdTooltip="Published Date"
                 mdTooltipPosition="right">{{video.publishedAt | date:"MM/dd/yy"}}</span>
         </p>
         <p>
-          <span mdTooltip="Duration"
+          <span class="video-text"
+                mdTooltip="Duration"
                 mdTooltipPosition="right">{{video.duration }}</span>
         </p>
         <p>
-          <span mdTooltip="Views"
+          <span class="video-text"
+                mdTooltip="Views"
                 mdTooltipPosition="right">{{video.viewCount | number}} Views</span>
         </p>
         <p>
-          <span mdTooltip="Comments"
+          <span class="video-text"
+                mdTooltip="Comments"
                 mdTooltipPosition="right">{{video.commentCount | number}} Comments</span>
         </p>
         <p>
-          <span mdTooltip="Like"
+          <span class="video-text"
+                mdTooltip="Like"
                 mdTooltipPosition="below">
                 <mat-icon>thumb_up</mat-icon> {{video.likeCount | number}}</span>
-          <span mdTooltip="Dislike"
+          <span class="video-text dislike"
+                mdTooltip="Dislike"
                 mdTooltipPosition="below">
                 <mat-icon>thumb_down</mat-icon> {{video.dislikeCount | number}}</span>
         </p>
-        <div class="video-description">
+        <div class="video-description video-text">
           {{video.description}}
         </div>
 
@@ -95,7 +101,7 @@
         </div>
 
         <div *ngIf="video.captionInfos.length> 0"
-             class="margin-top-25">
+             class="margin-top-10">
           <mat-form-field class="select-form-right-gap">
             <mat-select class="select"
                         name="caption"

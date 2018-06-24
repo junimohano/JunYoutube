@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
+import { Video } from '../../models/video.model';
+
 @Component({
   selector: 'app-playlist',
   templateUrl: './playlist.component.html',
@@ -7,8 +9,11 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 })
 export class PlaylistComponent implements OnInit {
   @Input() searchData: SearchData;
+  @Input() video: Video;
   @Input() playlist: Playlist;
+  @Input() selectedVideoId: string;
   @Input() isLoadingPlaylist: boolean;
+  @Input() isLoadingPlaylistItems: boolean;
 
   @Output() searchVideo = new EventEmitter<string>();
   @Output() searchPlaylist = new EventEmitter<boolean>();
@@ -21,6 +26,7 @@ export class PlaylistComponent implements OnInit {
   }
 
   onClick(videoId: string) {
-    this.searchVideo.emit(`${this.youtubeUrl}${videoId}`);
+    const videoUrl = `${this.youtubeUrl}${videoId}`;
+    this.searchVideo.emit(videoUrl);
   }
 }

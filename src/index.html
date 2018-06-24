@@ -2,129 +2,138 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <title>JunYoutube</title>
-    <base href="/">
+  <meta charset="utf-8">
+  <title>JunYoutube</title>
+  <base href="/">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1">
+  <link rel="icon"
+        type="image/x-icon"
+        href="favicon.ico">
 
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+        rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans"
+        rel="stylesheet">
 
-    <link rel="manifest" href="manifest.json">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <meta name="theme-color" content="#ffffff">
-    <link rel="apple-touch-icon" sizes="180x180" href="assets/icons/apple-touch-icon.png">
+  <link rel="manifest"
+        href="manifest.json">
+  <meta name="apple-mobile-web-app-capable"
+        content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style"
+        content="default">
+  <meta name="theme-color"
+        content="#ffffff">
+  <link rel="apple-touch-icon"
+        sizes="180x180"
+        href="assets/icons/apple-touch-icon.png">
 </head>
 
 <body>
-    <app-root>
-        <style>
-            app-root {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                height: 100vh;
-                color: dimgray;
-                text-transform: uppercase;
-                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, Helvetica, sans-serif;
-                font-size: 3em;
-                text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
-            }
+  <app-root>
+    <style>
+      app-root {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        color: dimgray;
+        text-transform: uppercase;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, Helvetica, sans-serif;
+        font-size: 3em;
+        text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+      }
 
-            body {
-                background: #ffc107;
-                margin: 0;
-                padding: 0;
-            }
+      body {
+        background: #ffc107;
+        margin: 0;
+        padding: 0;
+      }
 
-            @keyframes dots {
-                50% {
-                    transform: translateY(-.4rem);
-                }
-                100% {
-                    transform: translateY(0);
-                }
-            }
+      @keyframes dots {
+        50% {
+          transform: translateY(-.4rem);
+        }
+        100% {
+          transform: translateY(0);
+        }
+      }
 
-            .d {
-                animation: dots 1.5s ease-out infinite;
-            }
+      .d {
+        animation: dots 1.5s ease-out infinite;
+      }
 
-            .d-2 {
-                animation-delay: .5s;
-            }
+      .d-2 {
+        animation-delay: .5s;
+      }
 
-            .d-3 {
-                animation-delay: 1s;
-            }
-        </style>
+      .d-3 {
+        animation-delay: 1s;
+      }
+    </style>
 
-        Loading<span class="d">.</span><span class="d d-2">.</span><span class="d d-3">.</span>
-    </app-root>
+    Loading<span class="d">.</span><span class="d d-2">.</span><span class="d d-3">.</span>
+  </app-root>
 
-    <!--
+  <!--
 To collect end-user usage analytics about your application,
 insert the following script into each page you want to track.
 Place this code immediately before the closing </head> tag,
 and before any other scripts. Your first data will appear
 automatically in just a few seconds.
 -->
-    <script type="text/javascript">
-        var appInsights = window.appInsights || function(config) {
-            function i(config) {
-                t[config] = function() {
-                    var i = arguments;
-                    t.queue.push(function() {
-                        t[config].apply(t, i)
-                    })
-                }
-            }
-            var t = {
-                    config: config
-                },
-                u = document,
-                e = window,
-                o = "script",
-                s = "AuthenticatedUserContext",
-                h = "start",
-                c = "stop",
-                l = "Track",
-                a = l + "Event",
-                v = l + "Page",
-                y = u.createElement(o),
-                r, f;
-            y.src = config.url || "https://az416426.vo.msecnd.net/scripts/a/ai.0.js";
-            u.getElementsByTagName(o)[0].parentNode.appendChild(y);
-            try {
-                t.cookie = u.cookie
-            } catch (p) {}
-            for (t.queue = [], t.version = "1.0", r = ["Event", "Exception", "Metric", "PageView", "Trace", "Dependency"]; r.length;) i("track" + r.pop());
-            return i("set" + s), i("clear" + s), i(h + a), i(c + a), i(h + v), i(c + v), i("flush"), config.disableExceptionTracking || (r = "onerror", i("_" + r), f = e[r], e[r] = function(config, i, u, e, o) {
-                var s = f && f(config, i, u, e, o);
-                return s !== !0 && t["_" + r](config, i, u, e, o), s
-            }), t
-        }({
-            instrumentationKey: "75217454-9b29-4abc-912f-c20481241045"
-        });
-
-        window.appInsights = appInsights;
-        appInsights.trackPageView();
-    </script>
-
-    <script>
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('/service-worker.js').then(function(registration) {
-                // Registration was successful
-                console.log('ServiceWorker registration successful with scope: ', registration.scope);
-            }).catch(function(err) {
-                // registration failed :(
-                console.log('ServiceWorker registration failed: ', err);
-            });
+  <script type="text/javascript">
+    var appInsights = window.appInsights || function(config) {
+      function i(config) {
+        t[config] = function() {
+          var i = arguments;
+          t.queue.push(function() {
+            t[config].apply(t, i)
+          })
         }
-    </script>
+      }
+      var t = {
+          config: config
+        },
+        u = document,
+        e = window,
+        o = "script",
+        s = "AuthenticatedUserContext",
+        h = "start",
+        c = "stop",
+        l = "Track",
+        a = l + "Event",
+        v = l + "Page",
+        y = u.createElement(o),
+        r, f;
+      y.src = config.url || "https://az416426.vo.msecnd.net/scripts/a/ai.0.js";
+      u.getElementsByTagName(o)[0].parentNode.appendChild(y);
+      try {
+        t.cookie = u.cookie
+      } catch (p) {}
+      for (t.queue = [], t.version = "1.0", r = ["Event", "Exception", "Metric", "PageView", "Trace", "Dependency"]; r.length;) i("track" + r.pop());
+      return i("set" + s), i("clear" + s), i(h + a), i(c + a), i(h + v), i(c + v), i("flush"), config.disableExceptionTracking || (r = "onerror", i("_" + r), f = e[r], e[r] = function(config, i, u, e, o) {
+        var s = f && f(config, i, u, e, o);
+        return s !== !0 && t["_" + r](config, i, u, e, o), s
+      }), t
+    }({
+      instrumentationKey: "75217454-9b29-4abc-912f-c20481241045"
+    });
+
+    window.appInsights = appInsights;
+    appInsights.trackPageView();
+  </script>
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/service-worker.js').then(function(registration) {
+        console.log('ServiceWorker registration successful with scope: ', registration.scope);
+      }).catch(function(err) {
+        console.log('ServiceWorker registration failed: ', err);
+      });
+    }
+  </script>
 
 </body>
 

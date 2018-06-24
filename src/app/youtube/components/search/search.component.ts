@@ -9,7 +9,6 @@ import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
   styleUrls: ['./search.component.scss']
 })
 export class SearchComponent implements OnInit, AfterViewInit {
-
   @Input() searchData: SearchData;
   @Output() searchVideo = new EventEmitter();
   @Output() searchPlaylist = new EventEmitter();

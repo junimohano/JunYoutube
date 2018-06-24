@@ -3,7 +3,8 @@
 <div *ngIf="isLoadingPlaylist; else content">
   <div fxLayout
        fxLayoutAlign="center">
-    <mat-spinner color="accent"></mat-spinner>
+    <mat-spinner color="accent"
+                 diameter="50"></mat-spinner>
   </div>
 </div>
 
@@ -12,9 +13,9 @@
     <em class="playlist-text"><strong><span *ngIf="playlist.isPlaylist">Playlist</span><span *ngIf="!playlist.isPlaylist">Channel</span> ({{playlist.playlistInfos.length}} of {{playlist.totalCount}})</strong></em>
     <div class="playlist-panel">
       <div *ngFor="let playlistInfo of playlist.playlistInfos"
-           class="selected-playlist"
+           class="playlistinfo"
+           [class.selected]="video?.id === playlistInfo.videoId"
            (click)="onClick(playlistInfo.videoId)">
-
         <div fxLayout="row"
              fxLayoutGap="5px">
           <img [src]="playlistInfo.thumbnailUrl"
@@ -33,15 +34,21 @@
         </div>
       </div>
 
-      <div fxLayout="row"
+      <div fxLayout="column"
            fxLayoutAlign="center center"
            class="margin-top-20">
+        <mat-spinner *ngIf="isLoadingPlaylistItems"
+                     class="margin-bottom-10"
+                     color="accent"
+                     diameter="30"></mat-spinner>
+
         <button mat-raised-button
                 color="primary"
                 *ngIf="playlist.playlistInfos.length != playlist.totalCount"
+                [disabled]="isLoadingPlaylistItems"
                 (click)="searchPlaylist.emit(false)">
-                Show more
-            </button>
+            Show more
+        </button>
       </div>
     </div>
   </div>
