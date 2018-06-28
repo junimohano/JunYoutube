@@ -1,5 +1,5 @@
 <app-search [searchData]="searchData$ | async"
-            (searchVideo)="onSearchVideo($event)"
+            (searchVideo)="onSearchVideo($event, true)"
             (searchPlaylist)="onSearchPlaylist($event)"></app-search>
 
 <div fxLayout="row"
@@ -29,7 +29,7 @@
                   [playlist]="playlist$ | async"
                   [isLoadingPlaylist]="isLoadingPlaylist$ | async"
                   [isLoadingPlaylistItems]="isLoadingPlaylistItems$ | async"
-                  (searchVideo)="onSearchVideo($event)"
+                  (searchVideo)="onSearchVideo($event, false)"
                   (searchPlaylist)="onSearchPlaylist($event)"></app-playlist>
   </mat-card>
 </div>

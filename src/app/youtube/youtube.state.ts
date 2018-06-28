@@ -1,12 +1,12 @@
 import { DomSanitizer } from '@angular/platform-browser';
 import { Action, Selector, State, StateContext } from '@ngxs/store';
 
-import { CaptionInfo } from '../models/caption-info.model';
-import { Playlist } from '../models/playlist.model';
-import { VideoInfo } from '../models/video-info.model';
-import { Video } from '../models/video.model';
-import { YoutubeApiService } from '../services/youtube-api.service';
-import { SearchData } from './../models/search-data.model';
+import { CaptionInfo } from './models/caption-info.model';
+import { Playlist } from './models/playlist.model';
+import { SearchData } from './models/search-data.model';
+import { VideoInfo } from './models/video-info.model';
+import { Video } from './models/video.model';
+import { YoutubeApiService } from './services/youtube-api.service';
 import {
   SearchPlaylist,
   SearchVideo,
@@ -99,17 +99,28 @@ export class YoutubeState {
   }
 
   @Action(SetSearchDataUrl)
-  setSearchDataUrl({ patchState, getState }: StateContext<YoutubeStateModel>, { url }: SetSearchDataUrl) {
+  setSearchDataUrl({ patchState, getState }: StateContext<YoutubeStateModel>, { url, isReset }: SetSearchDataUrl) {
     const state = getState();
-    state.searchData.url = url;
-    patchState({ searchData: state.searchData });
+    if (isReset) {
+      patchState({
+        searchData: {
+          ...state.searchData,
+          index: '',
+          nextToken: null,
+          firstUrl: url,
+          inputUrl: url,
+          url: url
+        }
+      });
+    } else {
+      patchState({ searchData: { ...state.searchData, url: url } });
+    }
   }
 
   @Action(SetSearchDataNextToken)
   setSearchDataNextToken({ patchState, getState }: StateContext<YoutubeStateModel>, { nextToken }: SetSearchDataNextToken) {
     const state = getState();
-    state.searchData.nextToken = nextToken;
-    patchState({ searchData: state.searchData });
+    patchState({ searchData: { ...state.searchData, nextToken: nextToken } });
   }
 
   @Action(SetVideo)
@@ -186,20 +197,20 @@ export class YoutubeState {
         result => {
           try {
             if (result) {
-              const resultList: Playlist = result;
-              let playlist = getState().playlist;
+              const playlist = getState().playlist;
               if (playlist == null) {
-                dispatch(new SetPlaylist(resultList));
+                dispatch(new SetPlaylist(result));
               } else {
-                playlist.isPlaylist = resultList.isPlaylist;
-                playlist.totalCount = resultList.totalCount;
-                playlist.nextToken = resultList.nextToken;
-                playlist.playlistInfos = playlist.playlistInfos.concat(resultList.playlistInfos);
-                dispatch(new SetPlaylist(playlist));
+                dispatch(new SetPlaylist({
+                  ...playlist,
+                  isPlaylist: result.isPlaylist,
+                  totalCount: result.totalCount,
+                  nextToken: result.nextToken,
+                  playlistInfos: playlist.playlistInfos.concat(result.playlistInfos)
+                }));
               }
 
-              playlist = getState().playlist;
-              dispatch(new SetSearchDataNextToken(playlist.nextToken));
+              dispatch(new SetSearchDataNextToken(result.nextToken));
             }
           } catch (error) {
             console.error(error);

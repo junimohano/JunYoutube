@@ -11,8 +11,8 @@ import {
   SetSearchDataUrl,
   SetSelectedCaptionInfo,
   SetSelectedVideoInfo,
-} from './shared/youtube.actions';
-import { YoutubeState } from './shared/youtube.state';
+} from './youtube.actions';
+import { YoutubeState } from './youtube.state';
 
 @Component({
   selector: 'app-youtube',
@@ -37,9 +37,9 @@ export class YoutubeComponent implements OnInit {
   ngOnInit() {
   }
 
-  onSearchVideo(url: string): void {
+  onSearchVideo(url: string, isReset: boolean): void {
     this.store.dispatch([
-      new SetSearchDataUrl(url),
+      new SetSearchDataUrl(url, isReset),
       new SearchVideo()
     ]);
   }
@@ -49,7 +49,7 @@ export class YoutubeComponent implements OnInit {
     if (isReset) {
       this.store.dispatch(new SetPlaylist(null));
     } else {
-      this.store.dispatch(new SetSearchDataUrl(searchData.firstUrl));
+      this.store.dispatch(new SetSearchDataUrl(searchData.firstUrl, isReset));
     }
 
     this.store.dispatch(new SearchPlaylist(isReset));

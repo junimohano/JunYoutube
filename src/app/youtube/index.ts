@@ -1,5 +1,7 @@
 export * from './youtube.module';
 export * from './youtube.component';
+export * from './youtube.actions';
+export * from './youtube.state';
 export * from './components/video/video.component';
 export * from './components/playlist/playlist.component';
 export * from './components/search/search.component';
@@ -10,5 +12,3 @@ export * from './models/playlist.model';
 export * from './models/search-data.model';
 export * from './models/video-info.model';
 export * from './models/video.model';
-export * from './shared/youtube.actions';
-export * from './shared/youtube.state';
