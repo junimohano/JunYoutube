@@ -15,14 +15,15 @@ import {
   MatToolbarModule,
   MatTooltipModule,
 } from '@angular/material';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgxsModule } from '@ngxs/store';
 
 import { PlaylistComponent } from './components/playlist/playlist.component';
 import { SearchComponent } from './components/search/search.component';
 import { VideoComponent } from './components/video/video.component';
 import { YoutubeApiService } from './services/youtube-api.service';
-import { YoutubeComponent } from './youtube.component';
+import { YoutubeState } from './shared/youtube.state';
 import { YoutubeRoutingModule } from './youtube-routing.module';
+import { YoutubeComponent } from './youtube.component';
 
 const materialModules = [
   MatCardModule,
@@ -44,7 +45,8 @@ const materialModules = [
     YoutubeRoutingModule,
     FormsModule,
     HttpClientModule,
-    ...materialModules
+    ...materialModules,
+    NgxsModule.forFeature([YoutubeState])
   ],
   declarations: [
     YoutubeComponent,

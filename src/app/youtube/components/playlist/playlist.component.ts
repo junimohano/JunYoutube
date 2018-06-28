@@ -14,7 +14,6 @@ export class PlaylistComponent implements OnInit {
   @Input() searchData: SearchData;
   @Input() video: Video;
   @Input() playlist: Playlist;
-  @Input() selectedVideoId: string;
   @Input() isLoadingPlaylist: boolean;
   @Input() isLoadingPlaylistItems: boolean;
 

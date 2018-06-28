@@ -1,4 +1,4 @@
-<app-search [searchData]="searchData"
+<app-search [searchData]="searchData$ | async"
             (searchVideo)="onSearchVideo($event)"
             (searchPlaylist)="onSearchPlaylist($event)"></app-search>
 
@@ -10,11 +10,11 @@
   <mat-card fxFlex="60"
             fxFlex.xs="100"
             fxFlex.md="80">
-    <app-video [searchData]="searchData"
-               [video]="video"
-               [selectedVideoInfo]="selectedVideoInfo"
-               [selectedCaptionInfo]="selectedCaptionInfo"
-               [isLoadingVideo]="isLoadingVideo"
+    <app-video [searchData]="searchData$ | async"
+               [video]="video$ | async"
+               [selectedVideoInfo]="selectedVideoInfo$ | async"
+               [selectedCaptionInfo]="selectedCaptionInfo$ | async"
+               [isLoadingVideo]="isLoadingVideo$ | async"
                (downloadVideo)="onDownloadVideo()"
                (downloadCaption)="onDownloadCaption()"
                (changeSelectedVideoInfo)="onChangeSelectedVideoInfo($event)"
@@ -24,11 +24,11 @@
   <mat-card fxFlex="40"
             fxFlex.xs="100"
             fxFlex.md="20">
-    <app-playlist [searchData]="searchData"
-                  [video]="video"
-                  [playlist]="playlist"
-                  [isLoadingPlaylist]="isLoadingPlaylist"
-                  [isLoadingPlaylistItems]="isLoadingPlaylistItems"
+    <app-playlist [searchData]="searchData$ | async"
+                  [video]="video$ | async"
+                  [playlist]="playlist$ | async"
+                  [isLoadingPlaylist]="isLoadingPlaylist$ | async"
+                  [isLoadingPlaylistItems]="isLoadingPlaylistItems$ | async"
                   (searchVideo)="onSearchVideo($event)"
                   (searchPlaylist)="onSearchPlaylist($event)"></app-playlist>
   </mat-card>
