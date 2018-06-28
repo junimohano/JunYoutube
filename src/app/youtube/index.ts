@@ -10,3 +10,5 @@ export * from './models/playlist.model';
 export * from './models/search-data.model';
 export * from './models/video-info.model';
 export * from './models/video.model';
+export * from './shared/youtube.actions';
+export * from './shared/youtube.state';

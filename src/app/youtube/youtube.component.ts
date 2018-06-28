@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
 import { DomSanitizer } from '@angular/platform-browser';
+import { Select, Store } from '@ngxs/store';
 
 import { CaptionInfo } from './models/caption-info.model';
 import { Playlist } from './models/playlist.model';
@@ -8,6 +9,8 @@ import { SearchData } from './models/search-data.model';
 import { VideoInfo } from './models/video-info.model';
 import { Video } from './models/video.model';
 import { YoutubeApiService } from './services/youtube-api.service';
+import { SetIsLoadingPlaylist, SetisLoadingPlaylistItems, SetIsLoadingVideo } from './shared/youtube.actions';
+import { YoutubeState } from './shared/youtube.state';
 
 @Component({
   selector: 'app-youtube',
@@ -30,16 +33,15 @@ export class YoutubeComponent implements OnInit {
   playlist: Playlist;
   selectedVideoInfo: VideoInfo;
   selectedCaptionInfo: CaptionInfo;
-  selectedVideoId: string;
-  isLoadingVideo = false;
-  isLoadingPlaylist = false;
-  isLoadingPlaylistItems = false;
+  @Select(YoutubeState.getIsLoadingVideo) isLoadingVideo$;
+  @Select(YoutubeState.getIsLoadingPlaylist) isLoadingPlaylist$;
+  @Select(YoutubeState.getIsLoadingPlaylistItems) isLoadingPlaylistItems$;
 
   constructor(
     private sanitizer: DomSanitizer,
     private youtubeApiService: YoutubeApiService,
-    private snackBar: MatSnackBar,
-    private cdr: ChangeDetectorRef) { }
+    private store: Store,
+    private snackBar: MatSnackBar) { }
 
   ngOnInit() {
   }
@@ -131,18 +133,15 @@ export class YoutubeComponent implements OnInit {
   }
 
   private setLoadingVideo(isLoading: boolean): void {
-    this.isLoadingVideo = isLoading;
-    this.cdr.markForCheck();
+    this.store.dispatch(new SetIsLoadingVideo(isLoading));
   }
 
   private setLoadingPlaylist(isReset: boolean, isLoading: boolean): void {
     if (isReset) {
-      this.isLoadingPlaylist = isLoading;
+      this.store.dispatch(new SetIsLoadingPlaylist(isLoading));
     } else {
-      this.isLoadingPlaylistItems = isLoading;
+      this.store.dispatch(new SetisLoadingPlaylistItems(isLoading));
     }
-
-    this.cdr.markForCheck();
   }
 
   private downloadFile(fileUrl: string): void {

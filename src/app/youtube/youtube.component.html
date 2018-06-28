@@ -14,7 +14,7 @@
                [video]="video"
                [selectedVideoInfo]="selectedVideoInfo"
                [selectedCaptionInfo]="selectedCaptionInfo"
-               [isLoadingVideo]="isLoadingVideo"
+               [isLoadingVideo]="isLoadingVideo$ | async"
                (downloadVideo)="onDownloadVideo()"
                (downloadCaption)="onDownloadCaption()"
                (changeSelectedVideoInfo)="onChangeSelectedVideoInfo($event)"
@@ -27,8 +27,8 @@
     <app-playlist [searchData]="searchData"
                   [video]="video"
                   [playlist]="playlist"
-                  [isLoadingPlaylist]="isLoadingPlaylist"
-                  [isLoadingPlaylistItems]="isLoadingPlaylistItems"
+                  [isLoadingPlaylist]="isLoadingPlaylist$ | async"
+                  [isLoadingPlaylistItems]="isLoadingPlaylistItems$ | async"
                   (searchVideo)="onSearchVideo($event)"
                   (searchPlaylist)="onSearchPlaylist($event)"></app-playlist>
   </mat-card>
