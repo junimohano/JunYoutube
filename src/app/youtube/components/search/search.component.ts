@@ -18,7 +18,7 @@ export class SearchComponent implements OnInit, AfterViewInit {
 
   searchInput: (event: KeyboardEvent) => void;
   readonly minimumInputLength = 11;
-  readonly exampleUrl = 'https://www.youtube.com/watch?v=VY1eFxgRR-k&list=PL7zsB-C3aNu2yRY2869T0zj1FhtRIu5am';
+  readonly exampleUrl = 'https://www.youtube.com/watch?v=ffxKSjUwKdU&list=PLXDm2cr3AfgWNE167nmXmeEI4fIsT2Ee_';
   private readonly inputDebounceTime = 300;
 
   constructor(private router: Router) {
