@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Select, Store } from '@ngxs/store';
@@ -9,7 +9,13 @@ import { SearchData } from './models/search-data.model';
 import { VideoInfo } from './models/video-info.model';
 import { Video } from './models/video.model';
 import { YoutubeApiService } from './services/youtube-api.service';
-import { SetIsLoadingPlaylist, SetisLoadingPlaylistItems, SetIsLoadingVideo } from './shared/youtube.actions';
+import {
+  SetIsLoadingPlaylist,
+  SetisLoadingPlaylistItems,
+  SetIsLoadingVideo,
+  SetSelectedCaptionInfo,
+  SetSelectedVideoInfo,
+} from './shared/youtube.actions';
 import { YoutubeState } from './shared/youtube.state';
 
 @Component({
@@ -31,8 +37,8 @@ export class YoutubeComponent implements OnInit {
   };
   video: Video;
   playlist: Playlist;
-  selectedVideoInfo: VideoInfo;
-  selectedCaptionInfo: CaptionInfo;
+  @Select(YoutubeState.getSelectedVideoInfo) selectedVideoInfo$;
+  @Select(YoutubeState.getSelectedCaptionInfo) selectedCaptionInfo$;
   @Select(YoutubeState.getIsLoadingVideo) isLoadingVideo$;
   @Select(YoutubeState.getIsLoadingPlaylist) isLoadingPlaylist$;
   @Select(YoutubeState.getIsLoadingPlaylistItems) isLoadingPlaylistItems$;
@@ -58,8 +64,10 @@ export class YoutubeComponent implements OnInit {
               this.video = result;
               // tslint:disable-next-line:max-line-length
               this.video.embedUrl = this.sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/' + this.video.id);
-              this.selectedVideoInfo = this.video.videoInfos.length > 0 ? this.video.videoInfos[0] : null;
-              this.selectedCaptionInfo = this.video.captionInfos.length > 0 ? this.video.captionInfos[0] : null;
+              this.store.dispatch([
+                new SetSelectedVideoInfo(this.video.videoInfos.length > 0 ? this.video.videoInfos[0] : null),
+                new SetSelectedCaptionInfo(this.video.captionInfos.length > 0 ? this.video.captionInfos[0] : null)
+              ]);
             }
           } catch (error) {
             console.error(error);
@@ -111,25 +119,27 @@ export class YoutubeComponent implements OnInit {
   }
 
   onDownloadVideo(): void {
-    this.downloadFile(this.selectedVideoInfo.downloadUrl);
+    const selectedVideoInfo = this.store.selectSnapshot(YoutubeState.getSelectedVideoInfo);
+    this.downloadFile(selectedVideoInfo.downloadUrl);
     this.snackBar.open(`downloading ${this.video.title}...`, 'close', {
       duration: 2000,
     });
   }
 
   onDownloadCaption(): void {
-    this.downloadFile(this.selectedCaptionInfo.captionUrl);
-    this.snackBar.open(`downloading ${this.selectedCaptionInfo.languageFullName}...`, 'close', {
+    const selectedCaptionInfo = this.store.selectSnapshot(YoutubeState.getSelectedCaptionInfo);
+    this.downloadFile(selectedCaptionInfo.captionUrl);
+    this.snackBar.open(`downloading ${selectedCaptionInfo.languageFullName}...`, 'close', {
       duration: 2000,
     });
   }
 
   onChangeSelectedVideoInfo(videoInfo: VideoInfo): void {
-    this.selectedVideoInfo = videoInfo;
+    this.store.dispatch(new SetSelectedVideoInfo(videoInfo));
   }
 
   onChangeSelectedCaptionInfo(captionInfo: CaptionInfo): void {
-    this.selectedCaptionInfo = captionInfo;
+    this.store.dispatch(new SetSelectedCaptionInfo(captionInfo));
   }
 
   private setLoadingVideo(isLoading: boolean): void {

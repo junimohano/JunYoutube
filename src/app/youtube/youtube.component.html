@@ -12,8 +12,8 @@
             fxFlex.md="80">
     <app-video [searchData]="searchData"
                [video]="video"
-               [selectedVideoInfo]="selectedVideoInfo"
-               [selectedCaptionInfo]="selectedCaptionInfo"
+               [selectedVideoInfo]="selectedVideoInfo$ | async"
+               [selectedCaptionInfo]="selectedCaptionInfo$ | async"
                [isLoadingVideo]="isLoadingVideo$ | async"
                (downloadVideo)="onDownloadVideo()"
                (downloadCaption)="onDownloadCaption()"
