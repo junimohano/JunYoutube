@@ -1,18 +1,14 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
-import { DomSanitizer } from '@angular/platform-browser';
 import { Select, Store } from '@ngxs/store';
 
 import { CaptionInfo } from './models/caption-info.model';
-import { Playlist } from './models/playlist.model';
-import { SearchData } from './models/search-data.model';
 import { VideoInfo } from './models/video-info.model';
-import { Video } from './models/video.model';
-import { YoutubeApiService } from './services/youtube-api.service';
 import {
-  SetIsLoadingPlaylist,
-  SetisLoadingPlaylistItems,
-  SetIsLoadingVideo,
+  SearchPlaylist,
+  SearchVideo,
+  SetPlaylist,
+  SetSearchDataUrl,
   SetSelectedCaptionInfo,
   SetSelectedVideoInfo,
 } from './shared/youtube.actions';
@@ -25,18 +21,9 @@ import { YoutubeState } from './shared/youtube.state';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class YoutubeComponent implements OnInit {
-  searchData: SearchData = {
-    inputUrl: '',
-    firstUrl: '',
-    url: '',
-    index: '',
-    nextToken: null,
-    videoExtension: '',
-    audioBitrate: 0,
-    resolution: 0
-  };
-  video: Video;
-  playlist: Playlist;
+  @Select(YoutubeState.getSearchData) searchData$;
+  @Select(YoutubeState.getVideo) video$;
+  @Select(YoutubeState.getPlaylist) playlist$;
   @Select(YoutubeState.getSelectedVideoInfo) selectedVideoInfo$;
   @Select(YoutubeState.getSelectedCaptionInfo) selectedCaptionInfo$;
   @Select(YoutubeState.getIsLoadingVideo) isLoadingVideo$;
@@ -44,8 +31,6 @@ export class YoutubeComponent implements OnInit {
   @Select(YoutubeState.getIsLoadingPlaylistItems) isLoadingPlaylistItems$;
 
   constructor(
-    private sanitizer: DomSanitizer,
-    private youtubeApiService: YoutubeApiService,
     private store: Store,
     private snackBar: MatSnackBar) { }
 
@@ -53,75 +38,28 @@ export class YoutubeComponent implements OnInit {
   }
 
   onSearchVideo(url: string): void {
-    this.video = null;
-    this.searchData.url = url;
-    this.setLoadingVideo(true);
-    this.youtubeApiService.getYoutubeVideo(this.searchData)
-      .subscribe(
-        result => {
-          try {
-            if (result) {
-              this.video = result;
-              // tslint:disable-next-line:max-line-length
-              this.video.embedUrl = this.sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/' + this.video.id);
-              this.store.dispatch([
-                new SetSelectedVideoInfo(this.video.videoInfos.length > 0 ? this.video.videoInfos[0] : null),
-                new SetSelectedCaptionInfo(this.video.captionInfos.length > 0 ? this.video.captionInfos[0] : null)
-              ]);
-            }
-          } catch (error) {
-            console.error(error);
-          }
-        },
-        err => {
-          console.error(err);
-          this.setLoadingVideo(false);
-        }, () => {
-          this.setLoadingVideo(false);
-        });
+    this.store.dispatch([
+      new SetSearchDataUrl(url),
+      new SearchVideo()
+    ]);
   }
 
   onSearchPlaylist(isReset: boolean): void {
+    const searchData = this.store.selectSnapshot(YoutubeState.getSearchData);
     if (isReset) {
-      this.playlist = null;
+      this.store.dispatch(new SetPlaylist(null));
     } else {
-      this.searchData.url = this.searchData.firstUrl;
+      this.store.dispatch(new SetSearchDataUrl(searchData.firstUrl));
     }
 
-    this.setLoadingPlaylist(isReset, true);
-    this.youtubeApiService.getYoutubePlaylist(this.searchData)
-      .subscribe(
-        result => {
-          try {
-            if (result) {
-              const resultList: Playlist = result;
-              if (this.playlist == null) {
-                this.playlist = resultList;
-              } else {
-                this.playlist.isPlaylist = resultList.isPlaylist;
-                this.playlist.totalCount = resultList.totalCount;
-                this.playlist.nextToken = resultList.nextToken;
-                this.playlist.playlistInfos = this.playlist.playlistInfos.concat(resultList.playlistInfos);
-              }
-
-              this.searchData.nextToken = this.playlist.nextToken;
-            }
-          } catch (error) {
-            console.error(error);
-          }
-        },
-        err => {
-          console.error(err);
-          this.setLoadingPlaylist(isReset, false);
-        }, () => {
-          this.setLoadingPlaylist(isReset, false);
-        });
+    this.store.dispatch(new SearchPlaylist(isReset));
   }
 
   onDownloadVideo(): void {
     const selectedVideoInfo = this.store.selectSnapshot(YoutubeState.getSelectedVideoInfo);
     this.downloadFile(selectedVideoInfo.downloadUrl);
-    this.snackBar.open(`downloading ${this.video.title}...`, 'close', {
+    const video = this.store.selectSnapshot(YoutubeState.getVideo);
+    this.snackBar.open(`downloading ${video.title}...`, 'close', {
       duration: 2000,
     });
   }
@@ -140,18 +78,6 @@ export class YoutubeComponent implements OnInit {
 
   onChangeSelectedCaptionInfo(captionInfo: CaptionInfo): void {
     this.store.dispatch(new SetSelectedCaptionInfo(captionInfo));
-  }
-
-  private setLoadingVideo(isLoading: boolean): void {
-    this.store.dispatch(new SetIsLoadingVideo(isLoading));
-  }
-
-  private setLoadingPlaylist(isReset: boolean, isLoading: boolean): void {
-    if (isReset) {
-      this.store.dispatch(new SetIsLoadingPlaylist(isLoading));
-    } else {
-      this.store.dispatch(new SetisLoadingPlaylistItems(isLoading));
-    }
   }
 
   private downloadFile(fileUrl: string): void {
