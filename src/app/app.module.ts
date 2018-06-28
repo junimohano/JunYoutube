@@ -9,6 +9,7 @@ import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
 import { NgxsModule } from '@ngxs/store';
 
+import { environment } from '../environments/environment';
 import { routes } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FooterComponent } from './shared/components/footer/footer.component';
@@ -34,8 +35,8 @@ const materialModules = [
     routes,
     ...materialModules,
     NgxsModule.forRoot([]),
-    NgxsReduxDevtoolsPluginModule.forRoot(),
-    NgxsLoggerPluginModule.forRoot()
+    NgxsReduxDevtoolsPluginModule.forRoot({ maxAge: 25, disabled: environment.production }),
+    NgxsLoggerPluginModule.forRoot({ disabled: environment.production })
   ],
   bootstrap: [
     AppComponent
