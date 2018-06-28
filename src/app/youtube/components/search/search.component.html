@@ -7,10 +7,11 @@
                   fxFlex.xl="40"
                   appearance="outline">
     <mat-label>Video URL</mat-label>
-    <input matInput
+    <input #inputUrl
+           matInput
            type="search"
            placeholder="Please enter youtube video URL"
-           [(ngModel)]="searchData.inputUrl"
+           [ngModel]="searchData.inputUrl"
            (keyup.enter)="searchClick()"
            (keyup)="searchInput($event)">
   </mat-form-field>

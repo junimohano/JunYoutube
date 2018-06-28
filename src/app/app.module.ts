@@ -34,7 +34,7 @@ const materialModules = [
     BrowserAnimationsModule,
     routes,
     ...materialModules,
-    NgxsModule.forRoot([]),
+    NgxsModule.forRoot([], { developmentMode: !environment.production }),
     NgxsReduxDevtoolsPluginModule.forRoot({ maxAge: 25, disabled: environment.production }),
     NgxsLoggerPluginModule.forRoot({ disabled: environment.production })
   ],

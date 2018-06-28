@@ -1,11 +1,13 @@
-import { CaptionInfo } from '../models/caption-info.model';
-import { Playlist } from '../models/playlist.model';
-import { VideoInfo } from '../models/video-info.model';
-import { Video } from '../models/video.model';
+import { CaptionInfo } from './models/caption-info.model';
+import { Playlist } from './models/playlist.model';
+import { VideoInfo } from './models/video-info.model';
+import { Video } from './models/video.model';
 
 export class SetSearchDataUrl {
   static readonly type = '[youtube] set SetSearchDataUrl';
-  constructor(public url: string) { }
+  constructor(
+    public url: string,
+    public isReset: boolean) { }
 }
 
 export class SetSearchDataNextToken {

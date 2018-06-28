@@ -1,4 +1,13 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
@@ -11,10 +20,13 @@ import { SearchData } from '../../models/search-data.model';
   styleUrls: ['./search.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SearchComponent implements OnInit, AfterViewInit {
+export class SearchComponent implements OnInit {
   @Input() searchData: SearchData;
-  @Output() searchVideo = new EventEmitter();
-  @Output() searchPlaylist = new EventEmitter();
+
+  @Output() searchVideo = new EventEmitter<string>();
+  @Output() searchPlaylist = new EventEmitter<boolean>();
+
+  @ViewChild('inputUrl') inputUrl: ElementRef;
 
   searchInput: (event: KeyboardEvent) => void;
   readonly minimumInputLength = 11;
@@ -26,12 +38,13 @@ export class SearchComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     if (this.router.url !== '/watch' && this.router.url !== '/watch?utm_source=web_app_manifest') {
-      this.searchData.inputUrl = 'https://www.youtube.com' + this.router.url;
+      const url = 'https://www.youtube.com' + this.router.url;
+      this.searchClick(url);
     }
 
     this.inputChanges(this.inputDebounceTime).subscribe(value => {
       if (value.length > this.minimumInputLength) {
-        this.searchClick();
+        this.searchClick(value);
       }
     });
   }
@@ -44,23 +57,12 @@ export class SearchComponent implements OnInit, AfterViewInit {
     }).pipe(distinctUntilChanged(), debounceTime(debounce));
   }
 
-  ngAfterViewInit(): void {
-    if (this.searchData.inputUrl !== '') {
-      this.searchClick();
-    }
-  }
-
-  searchClick() {
-    this.searchData.index = '';
-    this.searchData.nextToken = null;
-    this.searchData.firstUrl = this.searchData.inputUrl;
-
-    this.searchVideo.emit(this.searchData.inputUrl);
+  searchClick(url: string = null) {
+    this.searchVideo.emit(url ? url : this.inputUrl.nativeElement.value);
     this.searchPlaylist.emit(true);
   }
 
   onClickExampleUrl() {
-    this.searchData.inputUrl = this.exampleUrl;
-    this.searchClick();
+    this.searchClick(this.exampleUrl);
   }
 }
