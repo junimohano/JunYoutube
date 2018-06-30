@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { filter } from 'rxjs/operators';
+import { debounceTime, filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-search',
@@ -22,6 +22,7 @@ export class SearchComponent implements OnInit {
   }
 
   readonly exampleUrl = 'https://www.youtube.com/watch?v=ffxKSjUwKdU&list=PLXDm2cr3AfgWNE167nmXmeEI4fIsT2Ee_';
+  private readonly searchDebounceTime = 300;
 
   private get isRouteUrlValid(): boolean {
     return this.router.url !== '/watch' && this.router.url !== '/watch?utm_source=web_app_manifest';
@@ -35,7 +36,10 @@ export class SearchComponent implements OnInit {
   ngOnInit() {
     this.initUrl();
     this.inputUrlControl.valueChanges
-      .pipe(filter(() => this.inputUrlControl.valid))
+      .pipe(
+        filter(() => this.inputUrlControl.valid),
+        debounceTime(this.searchDebounceTime)
+      )
       .subscribe(url => this.searchClick(url));
   }
 
