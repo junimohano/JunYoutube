@@ -1,18 +1,7 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  ElementRef,
-  EventEmitter,
-  Input,
-  OnInit,
-  Output,
-  ViewChild,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { AbstractControl, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
-
-import { SearchData } from '../../models/search-data.model';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-search',
@@ -21,48 +10,52 @@ import { SearchData } from '../../models/search-data.model';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SearchComponent implements OnInit {
-  @Input() searchData: SearchData;
-
   @Output() searchVideo = new EventEmitter<string>();
   @Output() searchPlaylist = new EventEmitter<boolean>();
 
-  @ViewChild('inputUrl') inputUrl: ElementRef;
+  searchForm = this.formBuilder.group({
+    inputUrl: ['', [Validators.required, Validators.minLength(11)]]
+  });
 
-  searchInput: (event: KeyboardEvent) => void;
-  readonly minimumInputLength = 11;
+  get inputUrlControl(): AbstractControl {
+    return this.searchForm.get('inputUrl');
+  }
+
   readonly exampleUrl = 'https://www.youtube.com/watch?v=ffxKSjUwKdU&list=PLXDm2cr3AfgWNE167nmXmeEI4fIsT2Ee_';
-  private readonly inputDebounceTime = 300;
 
-  constructor(private router: Router) {
+  private get isRouteUrlValid(): boolean {
+    return this.router.url !== '/watch' && this.router.url !== '/watch?utm_source=web_app_manifest';
+  }
+
+  constructor(
+    private router: Router,
+    private formBuilder: FormBuilder) {
   }
 
   ngOnInit() {
-    if (this.router.url !== '/watch' && this.router.url !== '/watch?utm_source=web_app_manifest') {
-      const url = 'https://www.youtube.com' + this.router.url;
-      this.searchClick(url);
-    }
-
-    this.inputChanges(this.inputDebounceTime).subscribe(value => {
-      if (value.length > this.minimumInputLength) {
-        this.searchClick(value);
-      }
-    });
-  }
-
-  inputChanges(debounce: number): Observable<string> {
-    return Observable.create(observer => {
-      this.searchInput = (event: KeyboardEvent) => {
-        observer.next((<HTMLInputElement>event.target).value);
-      };
-    }).pipe(distinctUntilChanged(), debounceTime(debounce));
+    this.initUrl();
+    this.inputUrlControl.valueChanges
+      .pipe(filter(() => this.inputUrlControl.valid))
+      .subscribe(url => this.searchClick(url));
   }
 
   searchClick(url: string = null) {
-    this.searchVideo.emit(url ? url : this.inputUrl.nativeElement.value);
+    this.searchVideo.emit(url ? url : this.inputUrlControl.value);
     this.searchPlaylist.emit(true);
   }
 
   onClickExampleUrl() {
-    this.searchClick(this.exampleUrl);
+    this.patchUrl(this.exampleUrl);
+  }
+
+  private initUrl() {
+    if (this.isRouteUrlValid) {
+      const url = 'https://www.youtube.com' + this.router.url;
+      this.patchUrl(url);
+    }
+  }
+
+  private patchUrl(url: string) {
+    this.searchForm.patchValue({ inputUrl: url });
   }
 }

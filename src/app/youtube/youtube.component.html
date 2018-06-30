@@ -1,5 +1,4 @@
-<app-search [searchData]="searchData$ | async"
-            (searchVideo)="onSearchVideo($event, true)"
+<app-search (searchVideo)="onSearchVideo($event, true)"
             (searchPlaylist)="onSearchPlaylist($event)"></app-search>
 
 <div fxLayout="row"
@@ -10,7 +9,7 @@
   <mat-card fxFlex="60"
             fxFlex.xs="100"
             fxFlex.md="80">
-    <app-video [searchData]="searchData$ | async"
+    <app-video [url]="(searchData$ | async)?.url"
                [video]="video$ | async"
                [selectedVideoInfo]="selectedVideoInfo$ | async"
                [selectedCaptionInfo]="selectedCaptionInfo$ | async"
@@ -24,8 +23,7 @@
   <mat-card fxFlex="40"
             fxFlex.xs="100"
             fxFlex.md="20">
-    <app-playlist [searchData]="searchData$ | async"
-                  [video]="video$ | async"
+    <app-playlist [video]="video$ | async"
                   [playlist]="playlist$ | async"
                   [isLoadingPlaylist]="isLoadingPlaylist$ | async"
                   [isLoadingPlaylistItems]="isLoadingPlaylistItems$ | async"

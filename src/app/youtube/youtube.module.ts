@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
   MatButtonModule,
   MatCardModule,
@@ -15,6 +15,7 @@ import {
   MatToolbarModule,
   MatTooltipModule,
 } from '@angular/material';
+import { NgxsFormPluginModule } from '@ngxs/form-plugin';
 import { NgxsModule } from '@ngxs/store';
 
 import { PlaylistComponent } from './components/playlist/playlist.component';
@@ -44,9 +45,11 @@ const materialModules = [
     CommonModule,
     YoutubeRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     ...materialModules,
-    NgxsModule.forFeature([YoutubeState])
+    NgxsModule.forFeature([YoutubeState]),
+    NgxsFormPluginModule
   ],
   declarations: [
     YoutubeComponent,

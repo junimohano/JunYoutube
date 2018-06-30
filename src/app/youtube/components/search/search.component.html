@@ -1,28 +1,31 @@
-<div fxLayout="row"
-     fxLayoutAlign="center center"
-     fxLayoutGap="10px"
-     class="margin-top-10 margin-bottom-15">
-  <mat-form-field fxFlex="70"
-                  fxFlex.lg="40"
-                  fxFlex.xl="40"
-                  appearance="outline">
-    <mat-label>Video URL</mat-label>
-    <input #inputUrl
-           matInput
-           type="search"
-           placeholder="Please enter youtube video URL"
-           [ngModel]="searchData.inputUrl"
-           (keyup.enter)="searchClick()"
-           (keyup)="searchInput($event)">
-  </mat-form-field>
+<form [formGroup]="searchForm"
+      novalidate
+      ngxsForm="youtube.searchForm"
+      (ngSubmit)="searchClick()">
+  <div fxLayout="row"
+       fxLayoutAlign="center center"
+       fxLayoutGap="10px"
+       class="margin-top-10 margin-bottom-15">
+    <mat-form-field fxFlex="70"
+                    fxFlex.lg="40"
+                    fxFlex.xl="40"
+                    appearance="outline">
+      <mat-label>Video URL</mat-label>
+      <input formControlName="inputUrl"
+             matInput
+             type="search"
+             placeholder="Please enter youtube video URL"
+             (keyup.enter)="searchClick()">
+    </mat-form-field>
 
-  <button fxFlex="5"
-          class="search-button"
-          mat-raised-button
-          color="accent"
-          [disabled]="searchData.inputUrl.length < minimumInputLength"
-          (click)="searchClick()">Search</button>
-</div>
+    <button fxFlex="5"
+            class="search-button"
+            type="submit"
+            color="accent"
+            mat-raised-button
+            [disabled]="searchForm.invalid">Search</button>
+  </div>
+</form>
 
 <div fxLayout="column"
      fxLayoutAlign="center center"

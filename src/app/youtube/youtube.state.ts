@@ -29,6 +29,12 @@ export interface YoutubeStateModel {
   isLoadingPlaylistItems: boolean;
   selectedVideoInfo: VideoInfo;
   selectedCaptionInfo: CaptionInfo;
+  searchForm: {
+    model: any,
+    dirty: boolean,
+    status: string,
+    errors: any
+  };
 }
 
 @State<YoutubeStateModel>({
@@ -50,7 +56,13 @@ export interface YoutubeStateModel {
     isLoadingPlaylist: false,
     isLoadingPlaylistItems: false,
     selectedVideoInfo: null,
-    selectedCaptionInfo: null
+    selectedCaptionInfo: null,
+    searchForm: {
+      model: undefined,
+      dirty: false,
+      status: '',
+      errors: {}
+    }
   }
 })
 export class YoutubeState {
@@ -113,7 +125,9 @@ export class YoutubeState {
         }
       });
     } else {
-      patchState({ searchData: { ...state.searchData, url: url } });
+      patchState({
+        searchData: { ...state.searchData, url: url }
+      });
     }
   }
 
