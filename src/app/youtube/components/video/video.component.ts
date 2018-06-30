@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
-import { SearchData } from '../../models/search-data.model';
 import { VideoInfo } from '../../models/video-info.model';
 import { Video } from '../../models/video.model';
 import { CaptionInfo } from './../../models/caption-info.model';
@@ -12,7 +11,7 @@ import { CaptionInfo } from './../../models/caption-info.model';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class VideoComponent implements OnInit {
-  @Input() searchData: SearchData;
+  @Input() url: string;
   @Input() video: Video;
   @Input() selectedVideoInfo: VideoInfo;
   @Input() selectedCaptionInfo: CaptionInfo;

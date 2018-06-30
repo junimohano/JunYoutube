@@ -6,7 +6,9 @@ import { MatButtonModule, MatIconModule, MatMenuModule, MatToolbarModule } from 
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
+import { NgxsFormPluginModule } from '@ngxs/form-plugin';
 import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
+import { NgxsRouterPluginModule } from '@ngxs/router-plugin';
 import { NgxsModule } from '@ngxs/store';
 
 import { environment } from '../environments/environment';
@@ -23,6 +25,14 @@ const materialModules = [
   FlexLayoutModule
 ];
 
+const ngxsModules = [
+  NgxsModule.forRoot([], { developmentMode: !environment.production }),
+  NgxsReduxDevtoolsPluginModule.forRoot({ maxAge: 25, disabled: environment.production }),
+  NgxsLoggerPluginModule.forRoot({ disabled: environment.production }),
+  NgxsRouterPluginModule.forRoot(),
+  NgxsFormPluginModule.forRoot()
+];
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,9 +44,7 @@ const materialModules = [
     BrowserAnimationsModule,
     routes,
     ...materialModules,
-    NgxsModule.forRoot([], { developmentMode: !environment.production }),
-    NgxsReduxDevtoolsPluginModule.forRoot({ maxAge: 25, disabled: environment.production }),
-    NgxsLoggerPluginModule.forRoot({ disabled: environment.production })
+    ...ngxsModules
   ],
   bootstrap: [
     AppComponent

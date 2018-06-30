@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 import { Playlist } from '../../models/playlist.model';
-import { SearchData } from '../../models/search-data.model';
 import { Video } from '../../models/video.model';
 
 @Component({
@@ -11,7 +10,6 @@ import { Video } from '../../models/video.model';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PlaylistComponent implements OnInit {
-  @Input() searchData: SearchData;
   @Input() video: Video;
   @Input() playlist: Playlist;
   @Input() isLoadingPlaylist: boolean;
