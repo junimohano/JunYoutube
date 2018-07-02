@@ -14,6 +14,7 @@ import { NgxsModule } from '@ngxs/store';
 import { environment } from '../environments/environment';
 import { routes } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { AuthModule } from './auth/auth.module';
 import { FooterComponent } from './shared/components/footer/footer.component';
 import { HeaderComponent } from './shared/components/header/header.component';
 
@@ -44,7 +45,8 @@ const ngxsModules = [
     BrowserAnimationsModule,
     routes,
     ...materialModules,
-    ...ngxsModules
+    ...ngxsModules,
+    AuthModule.forRoot()
   ],
   bootstrap: [
     AppComponent

@@ -1,5 +1,6 @@
 export const environment = {
   production: true,
   hmr: false,
-  webApiUrl: 'https://JunYoutubeWebApi.azurewebsites.net'
+  apiUrl: 'https://JunYoutubeApi.azurewebsites.net',
+  identityServerUrl: 'https://JunYoutubeIdentityServer.azurewebsites.net'
 };

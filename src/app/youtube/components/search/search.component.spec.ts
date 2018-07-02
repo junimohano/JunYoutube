@@ -1,9 +1,8 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import { SearchData } from '../../models/search-data.model';
 import { SearchComponent } from './search.component';
 
 export class MockRouter {
@@ -16,7 +15,8 @@ describe('SearchComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
-        FormsModule
+        FormsModule,
+        ReactiveFormsModule
       ],
       declarations: [SearchComponent],
       providers: [

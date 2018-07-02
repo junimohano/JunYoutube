@@ -17,11 +17,12 @@ import {
 } from '@angular/material';
 import { NgxsFormPluginModule } from '@ngxs/form-plugin';
 import { NgxsModule } from '@ngxs/store';
+import { AuthModule } from 'src/app/auth';
 
 import { PlaylistComponent } from './components/playlist/playlist.component';
 import { SearchComponent } from './components/search/search.component';
 import { VideoComponent } from './components/video/video.component';
-import { YoutubeApiService } from './services/youtube-api.service';
+import { YoutubeService } from './services/youtube.service';
 import { YoutubeRoutingModule } from './youtube-routing.module';
 import { YoutubeComponent } from './youtube.component';
 import { YoutubeState } from './youtube.state';
@@ -49,7 +50,8 @@ const materialModules = [
     HttpClientModule,
     ...materialModules,
     NgxsModule.forFeature([YoutubeState]),
-    NgxsFormPluginModule
+    NgxsFormPluginModule,
+    AuthModule.forChild()
   ],
   declarations: [
     YoutubeComponent,
@@ -58,7 +60,7 @@ const materialModules = [
     SearchComponent
   ],
   providers: [
-    YoutubeApiService
+    YoutubeService
   ]
 })
 export class YoutubeModule { }

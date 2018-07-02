@@ -5,7 +5,8 @@
 export const environment = {
   production: false,
   hmr: false,
-  webApiUrl: 'http://localhost:5000'
+  apiUrl: 'http://localhost:5000',
+  identityServerUrl: 'http://localhost:5001'
 };
 
 /*

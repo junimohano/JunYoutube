@@ -2,9 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { inject, TestBed } from '@angular/core/testing';
 import * as TypeMoq from 'typemoq';
 
-import { YoutubeApiService } from './youtube-api.service';
+import { YoutubeService } from './youtube.service';
 
-describe('YoutubeApiService', () => {
+describe('YoutubeService', () => {
   let httpClientMock: TypeMoq.IMock<HttpClient>;
 
   beforeEach(() => {
@@ -12,13 +12,13 @@ describe('YoutubeApiService', () => {
 
     TestBed.configureTestingModule({
       providers: [
-        YoutubeApiService,
+        YoutubeService,
         { provide: HttpClient, useValue: httpClientMock.object }
       ]
     });
   });
 
-  it('should ...', inject([YoutubeApiService], (service: YoutubeApiService) => {
+  it('should ...', inject([YoutubeService], (service: YoutubeService) => {
     expect(service).toBeTruthy();
   }));
 });

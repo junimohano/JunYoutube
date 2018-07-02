@@ -6,7 +6,7 @@ import { Playlist } from './models/playlist.model';
 import { SearchData } from './models/search-data.model';
 import { VideoInfo } from './models/video-info.model';
 import { Video } from './models/video.model';
-import { YoutubeApiService } from './services/youtube-api.service';
+import { YoutubeService } from './services/youtube.service';
 import {
   SearchPlaylist,
   SearchVideo,
@@ -67,7 +67,7 @@ export interface YoutubeStateModel {
 })
 export class YoutubeState {
   constructor(
-    private youtubeApiService: YoutubeApiService,
+    private youtubeApiService: YoutubeService,
     private sanitizer: DomSanitizer) { }
 
   @Selector()
