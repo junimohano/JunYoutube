@@ -4,16 +4,12 @@ import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
 import { environment } from '../../../environments/environment';
-import { AccessTokenStorage } from './access-token.storage';
+import { AccessTokenStorage } from './access-token-storage';
 
 @Injectable()
 export class AuthService {
   private headers = new HttpHeaders();
   private body: HttpParams;
-
-  get accessToken(): string {
-    return this.accessTokenStorage.get();
-  }
 
   constructor(
     private httpClient: HttpClient,

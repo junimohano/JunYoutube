@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 
-import { AccessTokenStorage } from './services/access-token.storage';
+import { AccessTokenStorage } from './services/access-token-storage';
 import { AuthResolver } from './services/auth.resolver';
 import { AuthService } from './services/auth.service';
 import { JwtInterceptor } from './services/jwt-interceptor';

@@ -2,15 +2,15 @@ import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/c
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { AuthService } from './auth.service';
+import { AccessTokenStorage } from './access-token-storage';
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
-  constructor(private authService: AuthService) {
+  constructor(private accessTokenStorage: AccessTokenStorage) {
   }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    const accessToken = this.authService.accessToken;
+    const accessToken = this.accessTokenStorage.get();
     if (accessToken) {
       request = request.clone({
         setHeaders: {
