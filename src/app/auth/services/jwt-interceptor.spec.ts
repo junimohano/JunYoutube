@@ -1,17 +1,17 @@
 import * as TypeMoq from 'typemoq';
 
-import { AuthService } from './auth.service';
+import { AccessTokenStorage } from './access-token-storage';
 import { JwtInterceptor } from './jwt-interceptor';
 
 describe('JwtInterceptor', () => {
   let service: JwtInterceptor;
 
-  let authServiceMock: TypeMoq.IMock<AuthService>;
+  let accessTokenStorageMock: TypeMoq.IMock<AccessTokenStorage>;
 
   beforeEach(() => {
-    authServiceMock = TypeMoq.Mock.ofType(AuthService);
+    accessTokenStorageMock = TypeMoq.Mock.ofType(AccessTokenStorage);
 
-    service = new JwtInterceptor(authServiceMock.object);
+    service = new JwtInterceptor(accessTokenStorageMock.object);
   });
 
   it('should create an instance', () => {

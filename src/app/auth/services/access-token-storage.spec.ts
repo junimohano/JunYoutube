@@ -1,4 +1,4 @@
-import { AccessTokenStorage } from './access-token.storage';
+import { AccessTokenStorage } from './access-token-storage';
 
 describe('AccessTokenStorage', () => {
   let service: AccessTokenStorage;

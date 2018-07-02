@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, TestBed } from '@angular/core/testing';
 import * as TypeMoq from 'typemoq';
 
-import { AccessTokenStorage } from './access-token.storage';
+import { AccessTokenStorage } from './access-token-storage';
 import { AuthService } from './auth.service';
 
 describe('AuthService', () => {
