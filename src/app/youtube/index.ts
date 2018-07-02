@@ -5,7 +5,7 @@ export * from './youtube.state';
 export * from './components/video/video.component';
 export * from './components/playlist/playlist.component';
 export * from './components/search/search.component';
-export * from './services/youtube-api.service';
+export * from './services/youtube.service';
 export * from './models/caption-info.model';
 export * from './models/playlist-info.model';
 export * from './models/playlist.model';

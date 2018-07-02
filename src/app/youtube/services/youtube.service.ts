@@ -8,22 +8,21 @@ import { SearchData } from '../models/search-data.model';
 import { Video } from '../models/video.model';
 
 @Injectable()
-export class YoutubeApiService {
+export class YoutubeService {
   private readonly apiUrl = '/api/v1';
-  private headers: HttpHeaders;
+  private headers = new HttpHeaders;
 
   constructor(private http: HttpClient) {
-    this.headers = new HttpHeaders();
     this.headers = this.headers.set('Content-Type', 'application/json; charset=utf-8');
   }
 
   getYoutubeVideo(searchData: SearchData): Observable<Video> {
     return this.http
-      .post<Video>(`${environment.webApiUrl}${this.apiUrl}/Videos`, searchData, { headers: this.headers });
+      .post<Video>(`${environment.apiUrl}${this.apiUrl}/Videos`, searchData, { headers: this.headers });
   }
 
   getYoutubePlaylist(searchData: SearchData): Observable<Playlist> {
     return this.http
-      .post<Playlist>(`${environment.webApiUrl}${this.apiUrl}/Playlists`, searchData, { headers: this.headers });
+      .post<Playlist>(`${environment.apiUrl}${this.apiUrl}/Playlists`, searchData, { headers: this.headers });
   }
 }
