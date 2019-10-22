@@ -1,8 +1,13 @@
-FROM node:latest as node
+FROM node:8-buster-slim as builder
+
 WORKDIR /app
+
 COPY . .
-RUN npm install
-RUN npm run build --prod
+
+RUN npm rebuild node-sass --force
+RUN npm install && \
+    npm run build:prod
 
 FROM nginx:alpine
-COPY --from=node /app/dist/JunYoutube /usr/share/nginx/html
+
+COPY --from=builder /app/dist/JunYoutube /usr/share/nginx/html
