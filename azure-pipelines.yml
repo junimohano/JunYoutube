@@ -19,33 +19,22 @@ steps:
     npm install -g @angular/cli
   displayName: 'Install Angular Cli'
 
-# - script: |
-#     npm install -g @angular/cli
-#     npm install
-#     ng build --prod
-#   displayName: 'npm install and build'
+- script: |
+    npm install -g @angular/cli
+    npm install
+    ng build --prod
+  displayName: 'npm install and build'
 
-# - task: ArchiveFiles@2
-#   inputs:
-#     rootFolderOrFile: 'dist/JunYoutube'
-#     includeRootFolder: false
-#     archiveType: 'zip'
-#     archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
-#     replaceExistingArchive: true
-
-# - task: PublishBuildArtifacts@1
-#   inputs:
-#     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-#     ArtifactName: 'drop'
-#     publishLocation: 'Container'
-
-- task: DockerInstaller@0
+- task: ArchiveFiles@2
   inputs:
-    dockerVersion: '17.09.0-ce'
+    rootFolderOrFile: 'dist/JunYoutube'
+    includeRootFolder: false
+    archiveType: 'zip'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+    replaceExistingArchive: true
 
-- task: Docker@2
+- task: PublishBuildArtifacts@1
   inputs:
-    containerRegistry: 'Docker Hub'
-    repository: 'junimohano/junyoutube'
-    command: 'buildAndPush'
-    Dockerfile: '**/Dockerfile'
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
