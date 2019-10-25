@@ -1,10 +1,9 @@
-FROM node:8-buster-slim as builder
+FROM node:alpine as builder
 
 WORKDIR /app
 
 COPY . .
 
-RUN npm rebuild node-sass --force
 RUN npm install && \
     npm run build:prod
 

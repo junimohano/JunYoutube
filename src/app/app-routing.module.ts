@@ -6,7 +6,7 @@ export const router: Routes = [
   { path: '', redirectTo: 'watch', pathMatch: 'full' },
   {
     path: 'watch',
-    loadChildren: './youtube/youtube.module#YoutubeModule',
+    loadChildren: () => import('./youtube/youtube.module').then(m => m.YoutubeModule),
     resolve: {
       auth: AuthResolver
     }

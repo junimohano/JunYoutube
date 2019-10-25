@@ -7,9 +7,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { NgxsFormPluginModule } from '@ngxs/form-plugin';
+import { NgxsHmrLifeCycle, NgxsHmrSnapshot } from '@ngxs/hmr-plugin';
 import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
 import { NgxsRouterPluginModule } from '@ngxs/router-plugin';
-import { NgxsModule } from '@ngxs/store';
+import { NgxsModule, StateContext } from '@ngxs/store';
 
 import { environment } from '../environments/environment';
 import { routes } from './app-routing.module';
@@ -52,4 +53,12 @@ const ngxsModules = [
     AppComponent
   ]
 })
-export class AppModule { }
+export class AppModule implements NgxsHmrLifeCycle<NgxsHmrSnapshot> {
+  hmrNgxsStoreOnInit(ctx: StateContext<NgxsHmrSnapshot>, snapshot: Partial<NgxsHmrSnapshot>) {
+    ctx.patchState(snapshot);
+  }
+
+  hmrNgxsStoreBeforeOnDestroy(ctx: StateContext<NgxsHmrSnapshot>): Partial<NgxsHmrSnapshot> {
+    return ctx.getState();
+  }
+}
