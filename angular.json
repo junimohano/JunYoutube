@@ -27,7 +27,8 @@
               "src/favicon.ico",
               "src/assets",
               "src/web.config",
-              "src/manifest.json"
+              "src/manifest.json",
+              "src/Staticfile"
             ],
             "styles": [
               "src/styles.scss",
