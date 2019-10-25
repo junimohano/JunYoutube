@@ -28,7 +28,7 @@
               "src/assets",
               "src/web.config",
               "src/manifest.json",
-              "src/Staticfile"
+              "src/nginx.conf"
             ],
             "styles": [
               "src/styles.scss",
